@@ -72,3 +72,18 @@ python manage.py runserver
 ```
 * In your web browser, navigate to `http://127.0.0.1:8000/admin`
 * If you can see the login page for admin, the project is working correctly.
+
+# About Gitflow
+* The **develop** branch is sacred. Please don't work on it unless you're creating a migration (which means changing the database. More on this later.).
+* You normal workflow would be something like this:
+    * Fetch the remote repository
+    * If there are changes on the remote **develop** branch, pull those changes to your local **develop** branch
+    * Create a new branch off of your local **develop** branch using this naming convention `#<story_number>_<short_title_of_breakdown_task>`
+    * Work on the breakdown task. 
+        * Note: you can always merge your local **develop** branch into your local task branch just so that you work on the latest state of the application. This is a good practice.
+        * Commit and push your local task branch to the remote repository often. This is a good practice.
+        
+
+
+
+
