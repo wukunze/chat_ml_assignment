@@ -31,13 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'ubs_project.apps.UbsProjectConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Add our application
+    'ubs_project.apps.UbsProjectConfig' # This object was created for us in /ubs_project/apps.py
 ]
 
 MIDDLEWARE = [
