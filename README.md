@@ -46,3 +46,29 @@ python manage.py shell
 # create admin account ,this is an django application called "django.contrib.admin", you can find the reason in /cse_site/cse_site/urls.py
 python manage.py createsuperuser
 # go to http://127.0.0.1:8000/admin/ after start server
+
+# How to get your local project up and running
+
+## Clone the project to your machine
+```
+git clone https://github.com/wukunze/chat_ml_assignment.git
+```
+* check out the **develop** branch
+
+## Set up your local MySQL server
+* In `cse_site\cse_site\settings.py`, under DATABASES, set USER and PASSWORD to your local MySQL root credentials.
+* **NOTE:** DO NOT COMMIT the `settings.py` file if you only make the changes above to connect the app to your database because different developers may name their root credentials differently.
+* Create a database named **ubs_system** in your local MySQL.
+
+## Migrate (tell Django to generates tables for you)
+* In `chat_ml_assigment\cse_site\`, run
+```
+python manage.py migrate
+```
+* Check that tables are added to you database
+* Run the server
+```
+python manage.py runserver
+```
+* In your web browser, navigate to `http://127.0.0.1:8000/admin`
+* If you can see the login page for admin, the project is working correctly.
