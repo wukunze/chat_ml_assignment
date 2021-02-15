@@ -52,6 +52,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'cse_site.urls'
 
+#  APP_DIRS = True  every application of django will automaticilly find template directory itself to load VIEW
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
