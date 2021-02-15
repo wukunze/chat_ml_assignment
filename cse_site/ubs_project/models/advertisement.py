@@ -1,8 +1,8 @@
 from django.db import models
 from .student import Student
 
-class Exchange(models.Model):
-    """Represents an Exchange:"""
+class Advertisement(models.Model):
+    """Represents an Advertisement."""
 
     title = models.CharField(max_length = 200)
     description = models.TextField()
