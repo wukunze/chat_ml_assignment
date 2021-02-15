@@ -115,7 +115,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# Set server time zone to Central Standard Time (Arlington time)
+TIME_ZONE = 'America/Chicago'
 
 USE_I18N = True
 
