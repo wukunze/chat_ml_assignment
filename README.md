@@ -82,7 +82,12 @@ python manage.py runserver
     * Work on the breakdown task. 
         * Note: you can always merge your local **develop** branch into your local task branch just so that you work on the latest state of the application. This is a good practice.
         * Commit and push your local task branch to the remote repository often. This is a good practice.
-        
+        * Once you finish your task, create a Pull Request to merge your remote task branch to the remote develop branch. A simple Code Review process here is that you add other developers to the Pull Request as your reviewers. If 3 people approve your code, Hoang or Kunze will merge you code in.
+
+# About Migration (Changing the database)
+* While working on your story/task, you may find that you need to modify the database. Just reach out to Hoang or Kunze and we can have a quick call to review your changes. 
+* A migration should be done on develop. This prevents the app/database from being broken while other developers are working on their tasks. Since we are using our local database, this won't happen as often but ensuring that everybody is working on a latest models/tables is a good thing to have. This is also the reason why Hoang and Kunze need to review you migration before you commit and push it. 
+* Once you've done pushing your migration to the remote develop branch. Announce it on the General chat so other developers and pull your changes and migrate them to their local databases.
 
 
 
