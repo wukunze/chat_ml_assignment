@@ -8,3 +8,6 @@ class Event(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField()
     created_by = models.ForeignKey(Student, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return "Event(title=%s)" % self.title

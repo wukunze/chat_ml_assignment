@@ -5,13 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-    <form action="{% url 'event_create' %}" method="post">
+    <form action="{% url 'event_create_handler' %}" method="post">
     {% csrf_token %}
     title : <input name="title" type="text"/><br>
     description:
-    <textarea name="description" type="text"></textarea>
+    <textarea name="description" type="text"></textarea> <br>
 
-    <input type="submit" value="Vote">
+    <input type="submit" value="create event">
     </form>
 
 </body>
