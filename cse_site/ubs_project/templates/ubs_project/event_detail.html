@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>event detail</h1>
+
+    <h2>Title: {{ event.title }}</h2>
+
+    <p>description: {{ event.description }}</p>
+    <p>created_at: {{ event.created_at }}</p>
+    <p>created_by: {{ event.created_by.first_name }}, {{ event.created_by.last_name }}, {{ event.created_by.email }}</p>
+
+
+</body>
+</html>

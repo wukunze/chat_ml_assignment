@@ -18,8 +18,8 @@ from django.urls import include, path
 from django.views.generic import RedirectView
 
 urlpatterns = [
+    path('ubs_project/', include('ubs_project.urls')),
     path('admin/', admin.site.urls),
-    path('ubs_project', include('ubs_project.urls'))
 ]
 
 # Add URL maps to redirect the base URL to our application
