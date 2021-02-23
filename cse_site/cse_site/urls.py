@@ -17,12 +17,22 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import RedirectView
 
+from django.conf.urls import url
+from django.shortcuts import render, HttpResponse
+from ubs_project import views
+
+def registration(request):
+    return render(request, 'registration_page.html')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ubs_project', include('ubs_project.urls'))
+    #path('ubs_project/', include('ubs_project.urls'))
+    path('register/', views.registrationPage),
+    path('register/student', views.registrationStudent),
+    path('login/', views.loginPage)
 ]
 
 # Add URL maps to redirect the base URL to our application
 urlpatterns += [
-    path('', RedirectView.as_view(url = 'ubs_project/', permanent = True))
+    #path('', RedirectView.as_view(url = 'ubs_project/', permanent = True))
 ]

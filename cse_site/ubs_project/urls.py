@@ -1,7 +1,7 @@
 from django.urls import path
-from . import views
+from cse_site.ubs_project import views
+
 
 urlpatterns = [
-    
 ]
 
