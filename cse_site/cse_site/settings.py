@@ -83,8 +83,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ubs_system',
         'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST': '192.168.137.60',
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
