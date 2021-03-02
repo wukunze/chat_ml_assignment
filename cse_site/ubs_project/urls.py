@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import event
+from .views import registration
 
 
 # function path()  parameter :    route  , view ,  kwargs,  name
@@ -7,6 +8,10 @@ from .views import event
 
 
 urlpatterns = [
+    # story3 : A student can register accout
+    path('registration_handler/', registration.registration_handler, name='registration_handler'), # POST receive data
+    path('registration/', registration.registration, name='registration'), # GET to show the html form
+
 
     # story 5 : A student can CRUD events
     # ex: /ubs_project/event_list/
@@ -22,8 +27,6 @@ urlpatterns = [
     path('event_update_handler/<int:pk>/', event.event_update_handler, name='event_update_handler'), # POST receive data
 
     path('event_delete/<int:pk>/', event.event_delete, name='event_delete'),
-
-
 
 ]
 

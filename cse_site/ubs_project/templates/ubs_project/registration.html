@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <title>Title</title>
+    <style>
+        .title_font{
+            font-size:2.0em;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row" style="height:200px"></div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" style="height:100px">
+            <form>
+                <p class="text-left"><span class="title_font text-info">Please Register</span></p>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Email address">
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input class="form-control" id="firstName" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input class="form-control" id="lastName" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password">
+                </div>
+            </form>
+            <div>
+                <button class="btn btn-primary btn-lg btn-block" id="register_btn">Register</button>
+            </div>
+            <div>
+                <button class="btn btn-link btn-default">back to login page</button>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.12.4-min.js"></script>
+<script type="text/javascript">
+     $("#register_btn").click(function(){
+        let postData = {
+            email: $("#email").val(),
+            firstName: $("#firstName").val(),
+            lastName: $("#lastName").val(),
+            password: $('#password').val()
+        }
+        $.ajax({
+             type: "POST",
+             url: "/ubs_project/registration_handler/",
+             data: postData,
+             dataType: "json",
+             success: function(data){
+                console.log(data)
+                if(data.status == 0){
+                    console.log(data)
+                     alert("register success");
+                }else{
+                console.log(data)
+                    alert("register failed, reason ："+data.desc);
+                }
+             },
+             error: function(data){
+                console.log(data)
+                alert("register failed, reason ："+ $.parseJSON(data.responseText).desc);
+             }
+         });
+     });
+
+</script>
+</html>
