@@ -25,7 +25,7 @@ SECRET_KEY = '6%9d=wpq7&86&j9f(&*tl&e14aan*7k2_xup5*9#x6gjmov%(8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -82,9 +82,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ubs_system',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
+        'USER': 'chat_ml',
+        'PASSWORD': 'cse6324team5',
+        'HOST': 'midgard.ddns.net',
         'PORT': '3306',
     }
 }
