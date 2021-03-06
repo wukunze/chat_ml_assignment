@@ -1,17 +1,11 @@
 from django.urls import path
 from .views import event
 from .views import registration
-
-
-# function path()  parameter :    route  , view ,  kwargs,  name
-# the 'name' value as called by the {% url %} template tag
-
+from .views import index
 
 urlpatterns = [
-    # story3 : A student can register accout
-    path('registration_handler/', registration.registration_handler, name='registration_handler'), # POST receive data
-    path('registration/', registration.registration, name='registration'), # GET to show the html form
-
+    path("", index.index, name="home"),
+    path("sign_up/", registration.sign_up, name="sign_up"),
 
     # story 5 : A student can CRUD events
     # ex: /ubs_project/event_list/

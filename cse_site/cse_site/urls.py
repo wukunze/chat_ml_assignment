@@ -18,11 +18,9 @@ from django.urls import include, path
 from django.views.generic import RedirectView
 
 urlpatterns = [
-    path('ubs_project/', include('ubs_project.urls')),
     path('admin/', admin.site.urls),
-]
-
-# Add URL maps to redirect the base URL to our application
-urlpatterns += [
-    path('', RedirectView.as_view(url = 'ubs_project/', permanent = True))
+    path("ubs_project/", include("ubs_project.urls")),
+    path("", RedirectView.as_view(url = 'ubs_project/', permanent = True)),
+    # Let Django search for authentication templates.
+    path("accounts/", include("django.contrib.auth.urls"))
 ]
