@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base_template.html" %}
+{% block content %}
     <form action="{% url 'event_update_handler' event.id %}" method="post">
     {% csrf_token %}
-    title : <input name="title" type="text" value="{{ event.title }}"/><br>
-    description:
+    Title : <input name="title" type="text" value="{{ event.title }}"/><br>
+    Description:
     <textarea name="description" type="text">{{ event.description }}</textarea>
 
-    <input type="submit" value="update event">
+    <input type="submit" value="Update Event">
     </form>
 
-</body>
-</html>
+{% endblock %}

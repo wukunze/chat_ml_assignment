@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    {% load static %}
-</head>
-<body>
-<h1>event_list  <a href="{% url 'event_create' %}">create event</a> </h1>
+{% extends "base_template.html" %}
+{% block content %}
+<h1>Event List</h1>
+<h2><a href="{% url 'event_create' %}">Create Event</a></h2>
 
 {% if event_list %}
     <ul>
@@ -20,6 +15,4 @@
 {% else %}
     <p>No event are available.</p>
 {% endif %}
-
-</body>
-</html>
+{% endblock %}

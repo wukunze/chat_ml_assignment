@@ -6,6 +6,7 @@ from django.views import generic,View
 from django.utils import timezone
 
 from ..models.event import Event
+from django.contrib.auth.models import User
 
 
 # story 5 : A student can CRUD events
@@ -55,7 +56,7 @@ def event_create(request):
     return render(request, 'ubs_project/event_create.html')
 
 def event_create_handler(request):
-    student = get_object_or_404(Student, pk=1)  # default student 1  ,because we dont have registraion
+    student = get_object_or_404(User, pk=request.user.id)  # default student 1  ,because we dont have registraion
     try:
         event = Event(title=request.POST['title'],
                       description=request.POST['description'],
