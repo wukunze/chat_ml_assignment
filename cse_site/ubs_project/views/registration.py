@@ -22,4 +22,4 @@ def sign_up(request):
             login(request, user)
             return render(request, "ubs_project/index.html")
     context['form'] = form
-    return render(request, "registration/sign_up.html", context)
+    return render(request, "ubs_project/sign_up.html", context)

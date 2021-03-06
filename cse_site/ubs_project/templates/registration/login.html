@@ -25,6 +25,7 @@
             <input type="password" class="form-control" placeholder="Password" name="password" autocomplete="current-password" required="" id="id_password">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
+        <a href="{% url 'sign_up' %}" class="btn btn-link">Sign Up</a>
         {% if form.errors %}
             <div class="alert alert-danger" role="alert">
                 Your username and password didn't match. Please try again.
