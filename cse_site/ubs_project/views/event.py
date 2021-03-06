@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views import generic,View
 from django.utils import timezone
 
-from ..models.event import Event, Student
+from ..models.event import Event
 
 
 # story 5 : A student can CRUD events

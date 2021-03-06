@@ -1,5 +1,6 @@
 from django.db import models
-from .student import Student
+from django.conf import settings
+
 from .merchandise import Merchandise
 
 class Payment(models.Model):
@@ -9,5 +10,5 @@ class Payment(models.Model):
     description = models.TextField()
     amount = models.DecimalField(max_digits = 15, decimal_places = 2)
     created_at = models.DateTimeField()
-    created_by = models.ForeignKey(Student, on_delete = models.CASCADE)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     merchandise = models.OneToOneField(Merchandise, on_delete = models.CASCADE)

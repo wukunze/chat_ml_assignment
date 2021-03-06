@@ -1,5 +1,5 @@
 from django.db import models
-from .student import Student
+from django.conf import settings
 
 class Merchandise(models.Model):
     """Represents a Merchandise."""
@@ -30,4 +30,4 @@ class Merchandise(models.Model):
     )
 
     created_at = models.DateTimeField()
-    created_by = models.ForeignKey(Student, on_delete = models.CASCADE)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)

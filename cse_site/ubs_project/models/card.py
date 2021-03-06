@@ -1,5 +1,5 @@
 from django.db import models
-from .student import Student
+from django.conf import settings
 
 class Card(models.Model):
     """Represents a debit/credit Card of a Student."""
@@ -23,4 +23,4 @@ class Card(models.Model):
     expiration_month = models.CharField(max_length = 2)
     expiration_year = models.CharField(max_length = 2)
     created_at = models.DateTimeField()
-    created_by = models.ForeignKey(Student, on_delete = models.CASCADE)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)

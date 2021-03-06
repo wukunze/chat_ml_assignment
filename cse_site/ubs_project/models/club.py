@@ -1,5 +1,5 @@
 from django.db import models
-from .student import Student
+from django.conf import settings
 
 class Club(models.Model):
     """Represents a Club."""
@@ -7,5 +7,5 @@ class Club(models.Model):
     title = models.CharField(max_length = 200)
     description = models.TextField()
     created_at = models.DateTimeField()
-    created_by = models.ForeignKey(Student, on_delete = models.CASCADE, related_name = "owned_clubs")
-    student = models.ManyToManyField(Student, related_name = "joined_clubs")
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, related_name = "owned_clubs")
+    student = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name = "joined_clubs")

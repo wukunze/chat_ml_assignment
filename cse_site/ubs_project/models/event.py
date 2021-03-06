@@ -1,5 +1,5 @@
 from django.db import models
-from .student import Student
+from django.conf import settings
 
 class Event(models.Model):
     """Represents an Event."""
@@ -7,7 +7,7 @@ class Event(models.Model):
     title = models.CharField(max_length = 200)
     description = models.TextField()
     created_at = models.DateTimeField()
-    created_by = models.ForeignKey(Student, on_delete = models.CASCADE)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
 
     def __str__(self):
         return "Event(title=%s)" % self.title
