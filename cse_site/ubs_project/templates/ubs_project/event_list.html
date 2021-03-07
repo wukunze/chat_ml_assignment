@@ -6,7 +6,8 @@
 {% if event_list %}
     <ul>
     {% for event in event_list %}
-        <li><a href="{% url 'event_detail' event.id %}">{{ event.title }}</a>
+        <li>
+            <a href="{% url 'event_detail' event.id %}">{{ event.title }}</a>
             <a href="{% url 'event_update' event.id %}"> <input type="button" value="update"></a>
             <a href="{% url 'event_delete' event.id %}"> <input type="button" value="delete"></a>
         </li>
