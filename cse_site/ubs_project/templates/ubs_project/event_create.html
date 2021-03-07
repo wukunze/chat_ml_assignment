@@ -1,12 +1,45 @@
 {% extends "base_template.html" %}
+{% block css %}
+    <!--load more css-->
+    <!-- load editor css -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'editor/css/editormd.css' %}" />
+{% endblock %}
+
 {% block content %}
-    <form action="{% url 'event_create_handler' %}" method="post">
+<form action="{% url 'event_create_handler' %}" method="post">
     {% csrf_token %}
-    Title : <input name="title" type="text"/><br>
-    Description:
-    <textarea name="description" type="text"></textarea> <br>
+    <div class="form-group">
+        <label>Title</label>
+        <input name="title" type="text" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+<!--        <textarea  name="description" type="text" class="form-control" rows="8" required></textarea>-->
+        <div id="test-editor">
+            <textarea name="description" type="text" class="form-control" rows="8" required></textarea>
+        </div>
 
-    <input type="submit" value="Create Event">
-    </form>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Create Event">
 
+</form>
+
+
+{% endblock %}
+
+{% block js %}
+    <!-- load editor js -->
+    <script src="{% static 'editor/editormd.js' %}"></script>
+    <script src="{% static 'editor/languages/en.js' %}"></script>
+    <script type="text/javascript">
+        $(function() {
+            var editor = editormd("test-editor", {
+                // width  : "100%",
+                height : 600,
+                syncScrolling : "single",
+                path   : "{% static 'editor/lib/' %}"
+            });
+        });
+    </script>
 {% endblock %}

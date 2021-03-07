@@ -82,9 +82,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ubs_system',
-        'USER': 'chat_ml',
-        'PASSWORD': 'cse6324team5',
-        'HOST': 'midgard.ddns.net',
+        'USER': 'root',# chat_ml
+        'PASSWORD': 'root',#cse6324team5
+        'HOST': '127.0.0.1', #midgard.ddns.net
         'PORT': '3306',
     }
 }

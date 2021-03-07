@@ -1,19 +1,47 @@
 {% extends "base_template.html" %}
 {% block content %}
 <h1>Event List</h1>
-<h2><a href="{% url 'event_create' %}">Create Event</a></h2>
-
 {% if event_list %}
-    <ul>
-    {% for event in event_list %}
-        <li>
-            <a href="{% url 'event_detail' event.id %}">{{ event.title }}</a>
-            <a href="{% url 'event_update' event.id %}"> <input type="button" value="update"></a>
-            <a href="{% url 'event_delete' event.id %}"> <input type="button" value="delete"></a>
-        </li>
-    {% endfor %}
-    </ul>
+    <a class="btn btn-success float-right" role="button" href="{% url 'event_create' %}">Create Event</a>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+            <th scope="col">Event Title</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+            <th scope="col">author</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for event in event_list %}
+        <tr>
+          <td><a href="{% url 'event_detail' event.id %}">{{ event.title }}</a></td>
+          <td>
+              {% if event.created_by.username == user.username%}
+                <a class="btn btn-primary" role="button" href="{% url 'event_update' event.id %}">update</a>
+              {% endif %}
+          </td>
+          <td>
+              {% if event.created_by.username == user.username%}
+                <a class="btn btn-danger" role="button" href="{% url 'event_delete' event.id %}">delete</a>
+              {% endif %}
+          </td>
+            <td>
+              {{ event.created_by.username }}
+          </td>
+        </tr>
+      {% endfor %}
+
+
+      </tbody>
+    </table>
+
 {% else %}
-    <p>No event are available.</p>
+    <div class="jumbotron" >
+      <h1 class="display-4 ">No event are available.</h1>
+      <hr class="my-4">
+      <p>create one !</p>
+      <a class="btn btn-primary btn-lg" href="{% url 'event_create' %}" role="button">Create Event</a>
+    </div>
 {% endif %}
 {% endblock %}
