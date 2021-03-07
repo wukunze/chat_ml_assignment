@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    {% load static %}
-</head>
-<body>
-<h1>event_list  <a href="{% url 'event_create' %}">create event</a> </h1>
+{% extends "base_template.html" %}
+{% block content %}
+<h1>Event List</h1>
+<h2><a href="{% url 'event_create' %}">Create Event</a></h2>
 
 {% if event_list %}
     <ul>
     {% for event in event_list %}
-        <li><a href="{% url 'event_detail' event.id %}">{{ event.title }}</a>
+        <li>
+            <a href="{% url 'event_detail' event.id %}">{{ event.title }}</a>
             <a href="{% url 'event_update' event.id %}"> <input type="button" value="update"></a>
             <a href="{% url 'event_delete' event.id %}"> <input type="button" value="delete"></a>
         </li>
@@ -20,6 +16,4 @@
 {% else %}
     <p>No event are available.</p>
 {% endif %}
-
-</body>
-</html>
+{% endblock %}
