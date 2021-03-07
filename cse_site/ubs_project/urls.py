@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import event
+from .views import advertisement
 from .views import registration
 from .views import index
 
@@ -21,6 +22,20 @@ urlpatterns = [
     path('event_update_handler/<int:pk>/', event.event_update_handler, name='event_update_handler'), # POST receive data
 
     path('event_delete/<int:pk>/', event.event_delete, name='event_delete'),
+
+
+    # Story 7: A student can CRUD advertisement
+    path('advertisement_list/', advertisement.IndexView.as_view(), name='advertisement_list'), # show all
+
+    path('advertisement_detail/<int:pk>/', advertisement.DetailView.as_view(), name='advertisement_detail'), # show advertisement by pk
+
+    path('advertisement_create/', advertisement.advertisement_create, name='advertisement_create'),  # GET to show the html form
+    path('advertisement_create_handler/', advertisement.advertisement_create_handler, name='advertisement_create_handler'),  # POST receive data
+
+    path('advertisement_update/<int:pk>/', advertisement.advertisement_update, name='advertisement_update'), # GET to show the html form
+    path('advertisement_update_handler/<int:pk>/', advertisement.advertisement_update_handler, name='advertisement_update_handler'), # POST receive data
+
+    path('advertisement_delete/<int:pk>/', advertisement.advertisement_delete, name='advertisement_delete'),
 
 ]
 

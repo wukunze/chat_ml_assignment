@@ -1,0 +1,47 @@
+{% extends "base_template.html" %}
+{% block content %}
+<h1>Advertisement List</h1>
+{% if advertisement_list %}
+    <a class="btn btn-success float-right" role="button" href="{% url 'advertisement_create' %}">Create Advertisement</a>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+            <th scope="col">Advertisement Title</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+            <th scope="col">author</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for advertisement in advertisement_list %}
+        <tr>
+          <td><a href="{% url 'advertisement_detail' advertisement.id %}">{{ advertisement.title }}</a></td>
+          <td>
+              {% if advertisement.created_by.username == user.username%}
+                <a class="btn btn-primary" role="button" href="{% url 'advertisement_update' advertisement.id %}">update</a>
+              {% endif %}
+          </td>
+          <td>
+              {% if advertisement.created_by.username == user.username%}
+                <a class="btn btn-danger" role="button" href="{% url 'advertisement_delete' advertisement.id %}">delete</a>
+              {% endif %}
+          </td>
+            <td>
+              {{ advertisement.created_by.username }}
+          </td>
+        </tr>
+      {% endfor %}
+
+
+      </tbody>
+    </table>
+
+{% else %}
+    <div class="jumbotron" >
+      <h1 class="display-4 ">No advertisement are available.</h1>
+      <hr class="my-4">
+      <p>create one !</p>
+      <a class="btn btn-primary btn-lg" href="{% url 'advertisement_create' %}" role="button">Create Advertisement</a>
+    </div>
+{% endif %}
+{% endblock %}
