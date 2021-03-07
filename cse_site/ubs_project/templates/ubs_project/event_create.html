@@ -9,6 +9,9 @@
 {% block content %}
 <form action="{% url 'event_create_handler' %}" method="post">
     {% csrf_token %}
+    <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
+    <input style="display: none" type="text" name="fakeusernameremembered" />
+    <input style="display: none" type="password" name="fakepasswordremembered" />
     <div class="form-group">
         <label>Title</label>
         <input name="title" type="text" class="form-control" required>
