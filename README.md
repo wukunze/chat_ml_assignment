@@ -71,18 +71,7 @@ git clone https://github.com/wukunze/chat_ml_assignment.git
 ```
 * check out the **develop** branch
 
-## Set up your local MySQL server
-* In `cse_site\cse_site\settings.py`, under DATABASES, set USER and PASSWORD to your local MySQL root credentials.
-* **NOTE:** DO NOT COMMIT the `settings.py` file if you only make the changes above to connect the app to your database because different developers may name their root credentials differently.
-* Create a database named **ubs_system** in your local MySQL.
-
-## Migrate (tell Django to generates tables for you)
-* In `chat_ml_assigment\cse_site\`, run
-```
-python manage.py migrate
-```
-* Check that tables are added to you database
-* Run the server
+## Run the server
 ```
 python manage.py runserver
 ```
@@ -94,7 +83,7 @@ python manage.py runserver
 * You normal workflow would be something like this:
     * Fetch the remote repository
     * If there are changes on the remote **develop** branch, pull those changes to your local **develop** branch
-    * Create a new branch off of your local **develop** branch using this naming convention `#<story_number>_<short_title_of_breakdown_task>`
+    * Create a new branch off of your local **develop** branch using this naming convention `feature/#<story_number>_<short_title_of_breakdown_task>`
     * Work on the breakdown task. 
         * Note: you can always merge your local **develop** branch into your local task branch just so that you work on the latest state of the application. This is a good practice.
         * Commit and push your local task branch to the remote repository often. This is a good practice.
@@ -103,7 +92,7 @@ python manage.py runserver
 # About Migration (Changing the database)
 * While working on your story/task, you may find that you need to modify the database. Just reach out to Hoang or Kunze and we can have a quick call to review your changes. 
 * A migration should be done on develop. This prevents the app/database from being broken while other developers are working on their tasks. Since we are using our local database, this won't happen as often but ensuring that everybody is working on a latest models/tables is a good thing to have. This is also the reason why Hoang and Kunze need to review you migration before you commit and push it. 
-* Once you've done pushing your migration to the remote develop branch. Announce it on the General chat so other developers and pull your changes and migrate them to their local databases.
+* Once you've done pushing your migration to the remote develop branch, announce it on the General chat so other developers can pull your changes.
 
 
 
