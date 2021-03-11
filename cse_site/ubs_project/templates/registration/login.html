@@ -8,29 +8,49 @@
     <title>UBS - Log In</title>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/signin.css' %}">
 </head>
 <body class="text-center">
-    <div class="container">
-        <form class="form-signin" method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label for="id_username" class="sr-only">Username</label>
-            <input type="text" class="form-control" placeholder="Username" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
-            <label for="id_password" class="sr-only">Password</label>
-            <input type="password" class="form-control" placeholder="Password" name="password" autocomplete="current-password" required="" id="id_password">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
-        <a href="{% url 'sign_up' %}" class="btn btn-link">Sign Up</a>
-        {% if form.errors %}
-            <div class="alert alert-danger" role="alert">
-                Your username and password didn't match. Please try again.
-            </div>
-        {% endif %}
+<div class="container">
+    <form class="form-signin" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="id_username" class="sr-only">Username</label>
+        <input type="text" class="form-control" placeholder="Username" name="username" autofocus=""
+               autocapitalize="none" autocomplete="username" maxlength="150" required oninvalid="validateUsername(this)" id="id_username">
+        <label for="id_password" class="sr-only">Password</label>
+        <input type="password" class="form-control" placeholder="Password" name="password"
+               autocomplete="current-password" required="" oninvalid="validatePassword(this)" id="id_password">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+    <a href="{% url 'sign_up' %}" class="btn btn-link">Sign Up</a>
+    {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+        Your username and password didn't match. Please try again.
     </div>
+    {% endif %}
+</div>
 </body>
+<script>
+function validateUsername(input) {
+if(input.value.length == 0){
+input.setCustomValidity("input username please");
+}else{
+input.setCustomValidity("");
+}
+}
+
+function validatePassword(input) {
+if(input.value.length == 0){
+input.setCustomValidity("input password please");
+}else{
+input.setCustomValidity("");
+}
+}
+</script>
 </html>
