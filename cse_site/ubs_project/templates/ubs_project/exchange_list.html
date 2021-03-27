@@ -1,0 +1,47 @@
+{% extends "base_template.html" %}
+{% block content %}
+<h1> Exchange List</h1>
+{% if exchange_list %}
+    <a class="btn btn-success float-right" role="button" href="{% url 'exchange_create' %}">Create Exchange</a>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+            <th scope="col">Exchange Title</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+            <th scope="col">author</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for exchange in exchange_list %}
+        <tr>
+          <td><a href="{% url 'exchange_detail' exchange.id %}">{{ exchange.title }}</a></td>
+          <td>
+              {% if exchange.created_by.username == user.username%}
+                <a class="btn btn-primary" role="button" href="{% url 'exchange_update' exchange.id %}">update</a>
+              {% endif %}
+          </td>
+          <td>
+              {% if exchange.created_by.username == user.username%}
+                <a class="btn btn-danger" role="button" href="{% url 'exchange_delete' exchange.id %}">delete</a>
+              {% endif %}
+          </td>
+            <td>
+              {{ exchange.created_by.username }}
+          </td>
+        </tr>
+      {% endfor %}
+
+
+      </tbody>
+    </table>
+
+{% else %}
+    <div class="jumbotron" >
+      <h1 class="display-4 ">No exchange are available.</h1>
+      <hr class="my-4">
+      <p>create one !</p>
+      <a class="btn btn-primary btn-lg" href="{% url 'exchange_create' %}" role="button">Create Exchange</a>
+    </div>
+{% endif %}
+{% endblock %}

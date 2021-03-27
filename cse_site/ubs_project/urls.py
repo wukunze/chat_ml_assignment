@@ -3,6 +3,7 @@ from .views import event
 from .views import advertisement
 from .views import registration
 from .views import index
+from .views import exchange
 
 urlpatterns = [
     path("", index.index, name="home"),
@@ -36,6 +37,19 @@ urlpatterns = [
     path('advertisement_update_handler/<int:pk>/', advertisement.advertisement_update_handler, name='advertisement_update_handler'), # POST receive data
 
     path('advertisement_delete/<int:pk>/', advertisement.advertisement_delete, name='advertisement_delete'),
+
+# Story : A student can CRUD exchanges
+    path('exchange_list/', exchange.IndexView.as_view(), name='exchange_list'), # show all
+
+    path('exchange_detail/<int:pk>/', exchange.DetailView.as_view(), name='exchange_detail'), # show exchange by pk
+
+    path('exchange_create/', exchange.exchange_create, name='exchange_create'),  # GET to show the html form
+    path('exchange_create_handler/', exchange.exchange_create_handler, name='exchange_create_handler'),  # POST receive data
+
+    path('exchange_update/<int:pk>/', exchange.exchange_update, name='exchange_update'), # GET to show the html form
+    path('exchange_update_handler/<int:pk>/', exchange.exchange_update_handler, name='exchange_update_handler'), # POST receive data
+
+    path('exchange_delete/<int:pk>/', exchange.exchange_delete, name='exchange_delete'),
 
 ]
 
