@@ -2,7 +2,13 @@
 {% block content %}
 <h1>Event List</h1>
 {% if event_list %}
-    <a class="btn btn-success float-right" role="button" href="{% url 'event_create' %}">Create Event</a>
+  <form class="form-inline float-left" action="{% url 'event_list' %}">
+    <input class="form-control" type="search" placeholder="" aria-label="Search" name="event_search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+
+
+  <a class="btn btn-success float-right" role="button" href="{% url 'event_create' %}">Create Event</a>
     <table class="table table-striped">
       <thead>
         <tr>
