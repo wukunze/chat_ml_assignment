@@ -4,6 +4,7 @@ from .views import advertisement
 from .views import registration
 from .views import club
 from .views import index
+from .views import exchange
 
 urlpatterns = [
     path("", index.index, name="home"),
@@ -38,7 +39,6 @@ urlpatterns = [
 
     path('advertisement_delete/<int:pk>/', advertisement.advertisement_delete, name='advertisement_delete'),
 
-
     # Story 8: A student can CRUD clubs
     path('club_list/', club.club_list, name='club_list'), # show all
     path('club_create/', club.club_create, name='club_create'),
@@ -50,5 +50,18 @@ urlpatterns = [
     path('club_detail/<int:pk>/', club.club_detail, name='club_detail'),
     path('club_exit/<int:pk>/', club.club_exit, name='club_exit'),
     path('club_dismiss/<int:pk>/', club.club_dismiss, name='club_dismiss'),
+
+    # Story : A student can CRUD exchanges
+    path('exchange_list/', exchange.IndexView.as_view(), name='exchange_list'), # show all
+
+    path('exchange_detail/<int:pk>/', exchange.DetailView.as_view(), name='exchange_detail'), # show exchange by pk
+
+    path('exchange_create/', exchange.exchange_create, name='exchange_create'),  # GET to show the html form
+    path('exchange_create_handler/', exchange.exchange_create_handler, name='exchange_create_handler'),  # POST receive data
+
+    path('exchange_update/<int:pk>/', exchange.exchange_update, name='exchange_update'), # GET to show the html form
+    path('exchange_update_handler/<int:pk>/', exchange.exchange_update_handler, name='exchange_update_handler'), # POST receive data
+
+    path('exchange_delete/<int:pk>/', exchange.exchange_delete, name='exchange_delete'),
 ]
 
