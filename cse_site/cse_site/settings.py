@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Add our application
-    'ubs_project.apps.UbsProjectConfig' # This object was created for us in /ubs_project/apps.py
+    'ubs_project.apps.UbsProjectConfig', # This object was created for us in /ubs_project/apps.py
+    'bootstrap4',
+
 ]
 
 MIDDLEWARE = [
@@ -82,9 +84,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ubs_system',
-        'USER': 'chat_ml',# chat_ml, root
-        'PASSWORD': 'cse6324team5',#cse6324team5, root
-        'HOST': 'midgard.ddns.net', #midgard.ddns.net ,127.0.0.1
+        'USER': 'root',# chat_ml, root
+        'PASSWORD': '123',#cse6324team5, root
+        'HOST': '127.0.0.1', #midgard.ddns.net ,127.0.0.1
         'PORT': '3306',
     }
 }
@@ -130,5 +132,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'cse_site/media')
 
 LOGIN_REDIRECT_URL = "home"

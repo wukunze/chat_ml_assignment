@@ -3,6 +3,7 @@ from .views import event
 from .views import advertisement
 from .views import registration
 from .views import index
+from .views.merchandise import DeleteItemView, UpdateItemView, ItemDetailsView, item_create, item_display
 
 urlpatterns = [
     path("", index.index, name="home"),
@@ -36,6 +37,17 @@ urlpatterns = [
     path('advertisement_update_handler/<int:pk>/', advertisement.advertisement_update_handler, name='advertisement_update_handler'), # POST receive data
 
     path('advertisement_delete/<int:pk>/', advertisement.advertisement_delete, name='advertisement_delete'),
+
+    # Story 10
+    path('display', item_display, name="display item"),
+
+    path('<int:pk>/', ItemDetailsView.as_view(), name="item details"),
+
+    path('create/', item_create, name="create item"),
+
+    path('delete/<int:pk>/', DeleteItemView.as_view(), name='delete item'),
+
+    path('edit/<int:pk>/', UpdateItemView.as_view(), name='edit item'),
 
 ]
 

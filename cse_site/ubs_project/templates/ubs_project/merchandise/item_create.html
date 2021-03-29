@@ -1,0 +1,36 @@
+{% extends 'base_template.html' %}
+{% load bootstrap4 %}
+
+{% block site_heading %}Add Merchandise{% endblock %}
+{% block site_content %}
+    <form class="col-lg-6 offset-lg-3" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name</label>
+            {{ form.name }}
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            {{ form.description }}
+        </div>
+        <div class="form-group">
+            {% bootstrap_field form.price %}
+        </div>
+        <div class="custom-file">
+            <label class="custom-file-label" for="image">Choose Merchandise Picture</label>
+            {{ form.image }}
+        </div>
+        <script>
+            function updateImage() {
+                var img = document.getElementById('img_preview');
+                var url = this.value;
+                img.src = url;
+            }
+
+            document.getElementById('img_input').addEventListener('input', updateImage);
+        </script>
+        <input type="submit" value="Create" class="btn btn-secondary mt-3">
+    </form>
+
+    {##}
+{% endblock %}

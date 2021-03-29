@@ -6,3 +6,4 @@ from .merchandise import Merchandise
 from .card import Card
 from .payment import Payment
 from .message import Message
+from .item import Item

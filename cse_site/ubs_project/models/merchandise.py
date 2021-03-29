@@ -6,7 +6,7 @@ class Merchandise(models.Model):
 
     title = models.CharField(max_length = 200)
     description = models.TextField()
-    value = models.DecimalField(max_digits = 15, decimal_places = 2)
+    value = models.DecimalField(max_digits = 10, decimal_places = 2)
 
     SALES_TYPE_CHOICES = (
         ("b", "buy/sell"),
