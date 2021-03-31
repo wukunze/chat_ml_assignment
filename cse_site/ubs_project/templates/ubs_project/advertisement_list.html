@@ -2,6 +2,11 @@
 {% block content %}
 <h1>Advertisement List</h1>
 {% if advertisement_list %}
+    <form class="form-inline float-left" action="{% url 'advertisement_list' %}">
+      <input class="form-control" type="search" placeholder="" aria-label="Search" name="ad_search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+
     <a class="btn btn-success float-right" role="button" href="{% url 'advertisement_create' %}">Create Advertisement</a>
     <table class="table table-striped">
       <thead>
