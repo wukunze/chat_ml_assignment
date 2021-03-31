@@ -15,12 +15,11 @@
             <label>Title</label>
             <input name="title" type="text" class="form-control" value="{{ exchange.title }}" required >
         </div>
-        <div class="form-group">
+        <div class="form-group" style="text-align: left">
             <label>Description</label>
-<!--            <textarea  name="description" type="text" class="form-control" rows="8" required>{{ exchange.description }}</textarea>-->
-            <div id="test-editor">
-                <textarea name="description" type="text" class="form-control" rows="8" required>{{ exchange.description }}</textarea>
-            </textarea>
+
+            <textarea id="description" name="description" type="text" class="form-control" rows="8" style="display:none;">{{ exchange.description|safe }}</textarea>
+            <div id="test-editor">{{ exchange.description|safe }}</div>
         </div>
         </div>
         <input type="submit" class="btn btn-primary" value="Update Exchange">
@@ -30,17 +29,22 @@
 
 {% endblock %}
 {% block js %}
-    <!-- load editor js -->
-    <script src="{% static 'editor/editormd.js' %}"></script>
-    <script src="{% static 'editor/languages/en.js' %}"></script>
+<!--    rich text editor-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/wangeditor@latest/dist/wangEditor.min.js"></script>
+    <script src="{% static 'js/i18next.js' %}"></script>
+
     <script type="text/javascript">
-        $(function() {
-            var editor = editormd("test-editor", {
-                // width  : "100%",
-                height : 600,
-                syncScrolling : "single",
-                path   : "{% static 'editor/lib/' %}"
-            });
-        });
+      const E = window.wangEditor
+      // const editor = new E("#div1")
+      const editor = new E(document.getElementById('test-editor'))
+      editor.config.lang = 'en'
+      editor.i18next = window.i18next
+
+      const $descriptionArea = $('#description')
+      editor.config.onchange = function (html) {
+        // The second step is to monitor the changes and synchronize the updates to the textarea
+        $descriptionArea.val(html)
+    }
+      editor.create()
     </script>
 {% endblock %}
