@@ -1,0 +1,30 @@
+{% extends 'base_template.html' %}
+{% block site_heading %}
+    All Merchandises
+{% endblock %}
+{% block site_content %}
+<style>
+
+</style>
+    <form method="get" action="{% url 'display item' %}" style="width:20rem;position:relative;left:60px">
+        {{ filter_form }}
+        {% csrf_token %}
+        <div class="text-center">
+            <button class="btn btn-secondary">Search</button>
+        </div>
+
+    </form>
+
+    <a href="{% url 'create item' %}"><input type="submit" class="btn btn-primary" value="Add new Merchandise" style="float: right;position:relative;left:-60px;top:-150px"></a>
+
+
+    <div class="container-fluid" style="width:90%">
+        <div class="row">
+            {% for item in items %}
+                <div class="col-lg-4 align-items-stretch">
+                    {% include 'ubs_project/merchandise/item_visualization.html' with item=item %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

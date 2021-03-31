@@ -18,8 +18,12 @@ class IndexView(generic.ListView):
     # context_object_name = 'exchange_list'  # default : <model name>_list, the context used in templete
 
     def get_queryset(self):
-        """Return the last five published questions."""
-        return Exchange.objects.order_by('-created_at')[:10]
+        search_query = self.request.GET.get('exchange_search', '')
+        """Return the filtered Exchange list."""
+        if search_query:
+            return Exchange.objects.filter(title__icontains=search_query).order_by('-created_at')[:10]
+        else:
+            return Exchange.objects.order_by('-created_at')[:10]
 
 
 class DetailView(generic.DetailView):

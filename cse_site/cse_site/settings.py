@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Add our application
-    'ubs_project.apps.UbsProjectConfig' # This object was created for us in /ubs_project/apps.py
+    'ubs_project.apps.UbsProjectConfig', # This object was created for us in /ubs_project/apps.py
+    'bootstrap4',
+
 ]
 
 MIDDLEWARE = [
@@ -130,5 +132,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'cse_site/media')
 
 LOGIN_REDIRECT_URL = "home"

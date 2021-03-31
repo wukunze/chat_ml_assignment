@@ -1,0 +1,72 @@
+{% extends "base_template.html" %}
+{% block content %}
+<h1 style="font-style:italic;">Please Manage your Club</h1>
+
+<div class="jumbotron">
+    <h1 class="display-4 " style="color:blue;">Click below to manage the club</h1>
+    {% load static %}
+    <img src="{% static 'img/club1.jpeg' %}" class="img-responsive" alt="Responsive image"
+         style="width:200px;height:200px;">
+    <img src="{% static 'img/club2.jpeg' %}" class="img-responsive" alt="Responsive image"
+         style="width:200px;height:200px;">
+    <img src="{% static 'img/club3.jpeg' %}" class="img-responsive" alt="Responsive image"
+         style="width:200px;height:200px;">
+    <img src="{% static 'img/club4.jpeg' %}" class="img-responsive" alt="Responsive image"
+         style="width:200px;height:200px;">
+    <hr class="my-4">
+    <h3 style="color:red;">Join Club Now !</h3>
+    <br>
+    <div class="row">
+        <div class="col-md-4 offset-md-2">
+            <a class="btn btn-primary btn-lg" style="width:100%;" href="{% url 'club_create' %}"
+               role="button">Create New Club</a>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-primary btn-lg" style="width:100%;" href="{% url 'club_search' %}"
+               role="button">Join Club</a>
+        </div>
+    </div>
+</div>
+<h1>Joined Club</h1>
+<table class="table table-striped" style="margin-top:30px">
+    <thead>
+    <tr>
+        <th scope="col">Club Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Owner</th>
+        <th scope="col">Exit</th>
+        <th scope="col">Update</th>
+        <th scope="col">Dismiss</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for club in club_list %}
+    <tr>
+        <td>{{club.title}}</td>
+        <td>
+            <a class="btn btn-primary bg-info" role="button" href="{% url 'club_detail' club.id %}">View Description</a>
+        </td>
+        <td>
+            {{club.created_by}}
+        </td>
+        <td>
+            {% if uid != club.created_by_id  %}
+            <a class="btn btn-primary bg-warning" role="button" href="{% url 'club_exit' club.id %}">Exit</a>
+            {% endif %}
+        </td>
+        <td>
+            {% if uid == club.created_by_id  %}
+            <a class="btn btn-primary" role="button" href="{% url 'club_update' club.id %}">Update</a>
+            {% endif %}
+        </td>
+        <td>
+            {% if uid == club.created_by_id  %}
+            <a class="btn btn-primary bg-danger" role="button" href="{% url 'club_dismiss' club.id %}">Dismiss</a>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
