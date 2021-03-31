@@ -1,0 +1,27 @@
+{% extends 'base_template.html' %}
+{% load bootstrap4 %}
+{% block site_heading %}Edit item{% endblock %}
+
+{% block site_content %}
+    <form class="col-lg-6 offset-lg-3" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name</label>
+            {{ form.name }}
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            {{ form.description }}
+        </div>
+        <div class="form-group">
+            {% bootstrap_field form.price %}
+        </div>
+        <img id="img_preview" src="{{ item.image.url }}" class="w-50 rounded mx-auto d-block" alt="..."/>
+        <div class="custom-file">
+            <label class="custom-file-label" for="image">Choose Image File</label>
+            {{ form.image }}
+        </div>
+        <input type="submit" value="Submit" class="btn btn-secondary mt-3">
+    </form>
+
+{% endblock %}
