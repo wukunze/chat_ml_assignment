@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Add our application
     'ubs_project.apps.UbsProjectConfig', # This object was created for us in /ubs_project/apps.py
-    'bootstrap4',
+    # 'bootstrap4',
 
 ]
 

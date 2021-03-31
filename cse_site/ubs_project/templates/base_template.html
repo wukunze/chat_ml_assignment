@@ -7,12 +7,16 @@
     {% block title %}<title>UBS</title>{% endblock %}
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--    change our UI to paper-kit-2  , it's an extended branch of Bootstrap https://demos.creative-tim.com/paper-kit-2/index.html
+        The syntax is the same as Bootstrap
+    -->
+
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'paper-kit-2/assets/css/paper-kit.css' %}"> <!-- merge paper-kit-2 with bootstrap4-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 
     <!-- Add additional CSS in static file -->
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/base_template.css' %}">
 
     {% block css %}
@@ -22,69 +26,79 @@
 
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">UBS</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">UBS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'event_list' %}">Events <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'advertisement_list' %}">Advertisement <span
-                        class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item {% if current_page == 'display item' %} active {% endif %}">
-                <a class="nav-link" href="{% url 'display item' %}">Show Merchandises</a>
-            </li>
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'event_list' %}">Events <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'advertisement_list' %}">Advertisement <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'exchange_list' %}">Exchanges <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'club_list' %}">Club <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item {% if current_page == 'display item' %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'display item' %}">Show Merchandises</a>
+                </li>
+            </ul>
 
+            <ul class="navbar-nav navbar-right">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><i class="bi bi-person-fill"></i> {{user.username}} <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
 
-        </ul>
+        </div>
+    </nav>
 
-        <ul class="navbar-nav navbar-right">
-            <li class="nav-item active">
-                <a class="nav-link" href="#"><i class="bi bi-person-fill"></i> {{user.username}} <span class="sr-only">(current)</span></a>
-            </li>
-        </ul>
-
+    <div id="body">
+        <h1 class="text-center">
+            {% block site_heading %}{% endblock %}
+        </h1>
+    
+        {% block site_content %}{% endblock %}
     </div>
-</nav>
 
-<div id="body">
-    <h1 class="text-center">
-        {% block site_heading %}{% endblock %}
-    </h1>
-
-    {% block site_content %}{% endblock %}
-</div>
-
-<main role="main" class="container">
-    <div class="starter-template">
-        {% block content %}{% endblock %}
-    </div>
-</main><!-- /.container -->
+    <main role="main" class="container">
+        <div class="starter-template">
+            {% block content %}{% endblock %}
+        </div>
+    </main><!-- /.container -->
 
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
-{% block js %}
-<!-- extend to load more js in child template -->
-{% endblock %}
+    <!--    for paper-kit-2-->
+        <!--   Core JS Files   -->
+        <script src="{% static 'paper-kit-2/assets/js/core/jquery.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'paper-kit-2/assets/js/core/popper.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'paper-kit-2/assets/js/core/bootstrap.min.js' %}" type="text/javascript"></script>
+        <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+        <script src="{% static 'paper-kit-2/assets/js/plugins/bootstrap-switch.js' %}"></script>
+        <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+        <script src="{% static 'paper-kit-2/assets/js/plugins/nouislider.min.js' %}" type="text/javascript"></script>
+        <!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
+        <script src="{% static 'paper-kit-2/assets/js/plugins/moment.min.js' %}"></script>
+        <script src="{% static 'paper-kit-2/assets/js/plugins/bootstrap-datepicker.js' %}" type="text/javascript"></script>
+        <!-- Control Center for Paper Kit: parallax effects, scripts for the example pages etc -->
+        <script src="{% static 'paper-kit-2/assets/js/paper-kit.min.js' %}" type="text/javascript"></script>
 
+
+    {% block js %}
+    <!-- extend to load more js in child template -->
+    {% endblock %}
+z
 </body>
 </html>

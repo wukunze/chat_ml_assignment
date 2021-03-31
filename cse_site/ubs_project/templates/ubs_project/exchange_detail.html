@@ -1,0 +1,51 @@
+{% extends "base_template.html" %}
+{% block css %}
+    <!--load more css-->
+    <!-- load editor css -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'editor/css/editormd.css' %}" />
+{% endblock %}
+{% block content %}
+    <div class="container">
+
+        <h2>{{ exchange.title }}</h2>
+
+        <div id="editor-content">
+            <textarea style="display: none;">{{ exchange.description }} </textarea>
+        </div>
+
+
+        <div class="alert alert-info " role="alert">
+        <span class="meta">Posted by <a href="#" class="alert-link">{{ exchange.created_by.username }}</a> on {{ exchange.created_at }} </span>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <!-- load editor js -->
+    {% load static %}
+    <script src="{% static 'editor/lib/marked.min.js' %}"></script>
+    <script src="{% static 'editor/lib/prettify.min.js' %}"></script>
+    <script src="{% static 'editor/lib/raphael.min.js' %}"></script>
+    <script src="{% static 'editor/lib/underscore.min.js' %}"></script>
+    <script src="{% static 'editor/lib/sequence-diagram.min.js' %}"></script>
+    <script src="{% static 'editor/lib/flowchart.min.js' %}"></script>
+    <script src="{% static 'editor/lib/jquery.flowchart.min.js' %}"></script>
+    <script src="{% static 'editor/editormd.min.js' %}"></script>
+
+     <script type="text/javascript">
+            var testEditor;
+            $(function() {
+                testEditor = editormd.markdownToHTML("editor-content", {//注意：这里是上面DIV的id
+                    htmlDecode : "style,script,iframe",
+                    emoji : true,
+                    taskList : true,
+                    tex : true, // 默认不解析
+                    flowChart : true, // 默认不解析
+                    sequenceDiagram : true, // 默认不解析
+                    codeFold : true
+                });
+            });
+        </script>
+
+{% endblock %}

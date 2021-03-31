@@ -1,0 +1,50 @@
+{% extends "base_template.html" %}
+{% block css %}
+    <!--load more css-->
+    <!-- load editor css -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'editor/css/editormd.css' %}" />
+{% endblock %}
+{% block content %}
+    <form action="{% url 'exchange_update_handler' exchange.id %}" method="post">
+        {% csrf_token %}
+        <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
+        <input style="display: none" type="text" name="fakeusernameremembered" />
+        <input style="display: none" type="password" name="fakepasswordremembered" />
+        <div class="form-group">
+            <label>Title</label>
+            <input name="title" type="text" class="form-control" value="{{ exchange.title }}" required >
+        </div>
+        <div class="form-group" style="text-align: left">
+            <label>Description</label>
+
+            <textarea id="description" name="description" type="text" class="form-control" rows="8" style="display:none;">{{ exchange.description|safe }}</textarea>
+            <div id="test-editor">{{ exchange.description|safe }}</div>
+        </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Update Exchange">
+
+    </form>
+
+
+{% endblock %}
+{% block js %}
+<!--    rich text editor-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/wangeditor@latest/dist/wangEditor.min.js"></script>
+    <script src="{% static 'js/i18next.js' %}"></script>
+
+    <script type="text/javascript">
+      const E = window.wangEditor
+      // const editor = new E("#div1")
+      const editor = new E(document.getElementById('test-editor'))
+      editor.config.lang = 'en'
+      editor.i18next = window.i18next
+
+      const $descriptionArea = $('#description')
+      editor.config.onchange = function (html) {
+        // The second step is to monitor the changes and synchronize the updates to the textarea
+        $descriptionArea.val(html)
+    }
+      editor.create()
+    </script>
+{% endblock %}
