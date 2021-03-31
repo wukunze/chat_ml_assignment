@@ -1,0 +1,10 @@
+<div class="card m-3" style="width: 18rem;">
+
+    {% load static %}
+    <img class="card-img-top" src="{{ item.image.url }}" alt="Card image cap" style="height: 17rem">
+    <div class="card-body">
+        <h5 class="card-title">{{ item.name }}</h5>
+        <p class="card-text">{{ item.price }}$</p>
+        <a href="{% url 'item details' item.id %}" class="btn btn-secondary">Details</a>
+    </div>
+</div>
