@@ -82,14 +82,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ubs_system',
-        'USER': 'chat_ml',# chat_ml, root
-        'PASSWORD': 'cse6324team5',#cse6324team5, root
-        'HOST': 'midgard.ddns.net', #midgard.ddns.net ,127.0.0.1
+        'USER': 'root',# chat_ml, root
+        'PASSWORD': 'root',#cse6324team5, root
+        'HOST': '127.0.0.1', #midgard.ddns.net ,127.0.0.1f
         'PORT': '3306',
     }
 }
 
-# 'ENGIN':  'django.db.backends.sqlite3'，'django.db.backends.postgresql'，'django.db.backends.mysql'，or   'django.db.backends.oracle'
+# 'ENGIN':  'django.db.backends.sqlite3'，'django.db.backends.postgresql'，'django.dbK.backends.mysql'，or   'django.db.backends.oracle'
 
 
 # Password validation
