@@ -1,0 +1,40 @@
+{% extends "base_template.html" %}
+{% block content %}
+
+<h1>Manage Your Club Member</h1>
+<table class="table table-striped" style="margin-top:30px">
+    <a class="btn btn-primary" role="button" href="{% url 'club_member_add_handler' club.id %}">Add Member</a>
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Member Name</th>
+        <th scope="col">Role</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for user in members %}
+    <tr>
+        <td>{{user.id}}</td>
+        <td>
+            {{user.username}}
+        </td>
+        <td>
+            {% if user.id == club.created_by_id  %}
+                Club Owner
+            {% else %}
+                Member
+            {% endif %}
+        </td>
+        <td>
+            {% if user.id != club.created_by_id  %}
+            <a class="btn btn-primary bg-danger" role="button" href="{% url 'club_member_delete' club_id=club.id user_id=user.id %}">Delete</a>
+            {% endif %}
+        </td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

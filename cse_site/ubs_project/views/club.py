@@ -194,3 +194,55 @@ def club_dismiss(request, pk):
     cursor.execute(delete_sql2)
 
     return club_list(request)
+
+
+# Story 9: A student/owner of the club can manage (add/delete) members  -- Kunze Wu
+# club member manage also in clubs
+
+# club page
+def club_member_list(request, pk):
+    club = get_object_or_404(Club, pk=pk)
+    members = club.student.all()  # Returns all members objects for this Club object.
+
+    context_object_name = {
+        "club": club,
+        "members": members,
+    }
+    return render(request, 'ubs_project/club_member_list.html', context_object_name)
+
+def club_member_delete(request, club_id, user_id):
+    club = get_object_or_404(Club, pk=club_id)
+    student = get_object_or_404(User, pk=user_id)
+    club.student.remove(student)
+
+    return redirect(reverse('club_member_list', args=(club_id,)))
+
+def club_member_add_handler(request, pk):
+    # return student still havent join any club
+    club = get_object_or_404(Club, pk=pk)
+
+    cursor = connection.cursor()
+    select_sql = "select * from auth_user where id not in ( select user_id from ubs_project_club_student )"
+    cursor.execute(select_sql)
+    raw = cursor.fetchall()
+
+    student_list = []
+    if len(raw) >= 1:
+        for content in raw:
+            user_id = content[0]
+            user = User.objects.filter(id=user_id)
+            student_list.append(user[0])
+
+    context_object_name = {
+        "club":club,
+        "students": student_list,
+    }
+    return render(request, 'ubs_project/club_member_add_handler.html', context_object_name)
+
+
+def club_member_add(request, club_id, user_id):
+    club = get_object_or_404(Club, pk=club_id)
+    student = get_object_or_404(User, pk=user_id)
+    club.student.add(student)
+
+    return redirect(reverse('club_member_list', args=(club_id,)))

@@ -37,6 +37,7 @@
         <th scope="col">Exit</th>
         <th scope="col">Update</th>
         <th scope="col">Dismiss</th>
+        <th scope="col">Manage Club</th>
     </tr>
     </thead>
     <tbody>
@@ -63,6 +64,11 @@
         <td>
             {% if uid == club.created_by_id  %}
             <a class="btn btn-primary bg-danger" role="button" href="{% url 'club_dismiss' club.id %}">Dismiss</a>
+            {% endif %}
+        </td>
+        <td>
+            {% if uid == club.created_by_id  %}
+            <a class="btn btn-primary bg-success" role="button" href="{% url 'club_member_list' club.id %}">Manage</a>
             {% endif %}
         </td>
     </tr>

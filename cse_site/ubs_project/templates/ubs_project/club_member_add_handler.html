@@ -1,0 +1,35 @@
+{% extends "base_template.html" %}
+{% block content %}
+
+<h1>Add A Member To Your Club</h1>
+
+
+<div class="alert alert-success" role="alert">
+    Students who have not joined any clubs
+</div>
+
+<table class="table table-striped" style="margin-top:30px">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Member Name</th>
+        <th scope="col">Add to your club</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for user in students %}
+    <tr>
+        <td>{{user.id}}</td>
+        <td>
+            {{user.username}}
+        </td>
+        <td>
+            <a class="btn btn-primary " role="button" href="{% url 'club_member_add' club_id=club.id user_id=user.id %}">Add</a>
+        </td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
