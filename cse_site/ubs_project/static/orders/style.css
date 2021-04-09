@@ -1,0 +1,11 @@
+header .col {
+    padding: 0 !important;
+}
+
+header img {
+    width: 100%;
+}
+
+#login, #register {
+    margin-top: 50px;
+}
