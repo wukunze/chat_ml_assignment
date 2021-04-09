@@ -19,6 +19,10 @@
     <!-- Add additional CSS in static file -->
     <link rel="stylesheet" href="{% static 'css/base_template.css' %}">
 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+
     {% block css %}
     <!-- extend to load more css in child template -->
     {% endblock %}
@@ -51,6 +55,12 @@
                 </li>
                 <li class="nav-item {% if current_page == 'display item' %} active {% endif %}">
                     <a class="nav-link" href="{% url 'display item' %}">Show Merchandises</a>
+                </li>
+                <li class="nav-item {% if current_page == 'display item' %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+                </li>
+                <li class="nav-item {% if current_page == 'display item' %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'orders' %}">Orders</a>
                 </li>
             </ul>
 
@@ -99,6 +109,6 @@
     {% block js %}
     <!-- extend to load more js in child template -->
     {% endblock %}
-z
+
 </body>
 </html>

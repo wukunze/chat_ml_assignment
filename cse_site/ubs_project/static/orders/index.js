@@ -13,28 +13,28 @@ document.addEventListener('DOMContentLoaded', () => {
     
 });
 
-async function addToCart(pizza_id) {
+async function addToCart(item_id) {
     let success = false;
     const req = new XMLHttpRequest();
     const csrfToken = Cookies.get('csrftoken');
-    req.open('POST', '/cart');
+    req.open('POST', 'cart');
     req.setRequestHeader('X-CSRFToken', csrfToken);
     req.onload = () => {
         let message = "";
         let buttonText = "GO TO CART";
-        let btnHref = "/cart";
+        let btnHref = "cart";
         if (req.status == 200){
             let data = req.responseText;
             let state = JSON.parse(data)['message'];
             if (state == 'auth') {
                 buttonText = "LOGIN"
-                btnHref = "/login"
-                message = "Please login to add pizzas to your cart"
+                btnHref = "/accounts/login/"
+                message = "Please login to add merchandise to your cart"
             }
-            else message = "Your pizza has been added to your cart successfully!";
+            else message = "Your item has been added to your cart successfully!";
         } 
         else {
-            message = "There has been a problem while adding the pizza to your cart. Please try again.";
+            message = "There has been a problem while adding the merchandise to your cart. Please try again.";
         }
         document.getElementById('add-result').innerText = message;
         actionBtn = document.getElementById('modal-action');
@@ -47,6 +47,6 @@ async function addToCart(pizza_id) {
     };
     
     data = new FormData();
-    data.append("pizza_id", pizza_id);
+    data.append("item_id", item_id);
     req.send(data);
 }

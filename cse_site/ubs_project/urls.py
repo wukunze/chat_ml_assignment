@@ -6,6 +6,7 @@ from .views import club
 from .views import index
 from .views.merchandise import DeleteItemView, UpdateItemView, ItemDetailsView, item_create, item_display
 from .views import exchange
+from .views import order
 
 urlpatterns = [
     path("", index.index, name="home"),
@@ -80,7 +81,13 @@ urlpatterns = [
     path('club_member_list/<int:pk>/', club.club_member_list, name='club_member_list'), # show all club member of your own club
     path('club_member_delete/<int:club_id>/<int:user_id>/', club.club_member_delete, name='club_member_delete'),
     path('club_member_add_handler/<int:pk>/', club.club_member_add_handler, name='club_member_add_handler'),
-    path('club_member_add/<int:club_id>/<int:user_id>/', club.club_member_add, name='club_member_add')
+    path('club_member_add/<int:club_id>/<int:user_id>/', club.club_member_add, name='club_member_add'),
 
+    path("cart", order.cart, name="cart"),
+    path("cart/<int:cart_line_id>", order.update_cart_quantity, name="cart_update"),
+    path("cart/delete/<int:cart_line_id>", order.delete_from_cart, name="cart_delete"),
+    path("cart/order", order.order_cart, name="cart_order"),
+    path("orders", order.orders, name="orders"),
+    path("order/<int:order_id>", order.order, name="order")
 ]
 

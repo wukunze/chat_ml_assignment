@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     orderBtn.addEventListener('click', () => {
         const req = new XMLHttpRequest();
         const csrfToken = Cookies.get('csrftoken');
-        req.open('GET', '/cart/order');
+        req.open('GET', 'cart/order');
         req.setRequestHeader('X-CSRFToken', csrfToken);
         req.onload = () => {
-            window.location.href = "/cart";
+            window.location.href = "cart";
         }
         req.send(false);
     });
