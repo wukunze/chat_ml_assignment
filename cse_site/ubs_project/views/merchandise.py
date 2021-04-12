@@ -2,13 +2,14 @@ from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import mixins as auth_mixins
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.urls import reverse_lazy
 
 from django.views import generic as views
 
 from ..forms import FilterForm, ItemCreateForm
 from ..models.item import Item
+from django.contrib.auth.models import User
 
 
 def extract_filter_values(params):
@@ -33,6 +34,35 @@ def item_display(request):
     }
 
     return render(request, 'ubs_project/merchandise/item_display.html', context)
+
+
+#Exchange Merchandise
+def item_trade(request, item_id):
+    params = extract_filter_values(request.GET)
+    student = get_object_or_404(User, pk=request.user.id)
+    lItem = get_object_or_404(Item, pk=item_id)
+    lItems = Item.objects.filter(name__icontains=params['text'], create_by=student)
+
+    #Handle error cases
+    if len(lItems) == 0:
+        return render(request, "ubs_project/merchandise/error.html",
+                      {"message": "You have no items to exchange!"},
+                      status=404)
+    if student.username == lItem.create_by.username:
+        return render(request, "ubs_project/merchandise/error.html",
+                      {"message": "You cannot exchange your own item!"},
+                      status=404)
+
+
+    context = {
+        'lItems': lItems,
+        'lItem': lItem,
+        'current_page': 'home',
+        'filter_form': FilterForm(initial=params),
+    }
+
+    
+    # return render(request, 'ubs_project/merchandise/item_display.html', context)
 
 
 class ItemDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):

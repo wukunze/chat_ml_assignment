@@ -4,7 +4,7 @@ from .views import advertisement
 from .views import registration
 from .views import club
 from .views import index
-from .views.merchandise import DeleteItemView, UpdateItemView, ItemDetailsView, item_create, item_display
+from .views.merchandise import DeleteItemView, UpdateItemView, ItemDetailsView, item_create, item_display, item_trade
 from .views import exchange
 from .views import order
 
@@ -65,6 +65,8 @@ urlpatterns = [
     path('delete/<int:pk>/', DeleteItemView.as_view(), name='delete item'),
 
     path('edit/<int:pk>/', UpdateItemView.as_view(), name='edit item'),
+
+    path('trade/<int:item_id>/', item_trade, name="trade item"),
 
     # Story 8: A student can CRUD clubs
     path('club_list/', club.club_list, name='club_list'), # show all
