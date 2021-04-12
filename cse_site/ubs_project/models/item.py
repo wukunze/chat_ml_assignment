@@ -16,7 +16,8 @@ class Item(models.Model):
     SALES_TYPE_CHOICES = (
         ("b", "buy/sell"),
         ("l", "lend"),
-        ("e", "exchange")
+        ("e", "exchange"),
+        ("s", "sold")
     )
     sales_type = models.CharField(
         max_length=1,

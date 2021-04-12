@@ -13,7 +13,6 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-
 # Create your views here.
 
 # Add a item to the cart
@@ -47,7 +46,8 @@ def delete_from_cart(request, cart_line_id):
     try:
         Cart_line.objects.get(id=cart_line_id).delete()
     except ObjectDoesNotExist:
-        return render(request, "merchandise/error.html", {"message": "could not delete the Pizza : Pizza does not exist"},
+        return render(request, "merchandise/error.html",
+                      {"message": "could not delete the Pizza : Pizza does not exist"},
                       status=404)
     return redirect("cart")
 
@@ -63,6 +63,13 @@ def order_cart(request):
     cart.is_ordered = True
     order.save()
     cart.save()
+    # update item sales type to Sold
+    cart_lines = Cart_line.objects.filter(cart=cart)
+    for line in cart_lines:
+        item = line.item
+        item.sales_type = "s"
+        item.status = 'c'
+        item.save()
 
     return JsonResponse({'url': 'orders'})
 
@@ -108,7 +115,6 @@ def update_cart_quantity(request, cart_line_id):
     cart_line = Cart_line.objects.get(id=cart_line_id)
     cart_line.updateQuantityTo(request.POST['quantity'])
     return JsonResponse({"url": '/cart'})
-
 
 
 # Allows users to browse their last orders
@@ -160,4 +166,3 @@ def order(request, order_id):
         return render(request, "ubs_project/merchandise/order.html", context)
     else:
         return render(request, "ubs_project/merchandise/error.html", {"message": "access is forbidden"}, 403)
-

@@ -24,7 +24,7 @@ def extract_filter_values(params):
 def item_display(request):
     params = extract_filter_values(request.GET)
     order_by = 'name' if params['order'] == FilterForm.ORDER_ASC else '-name'
-    items = Item.objects.filter(name__icontains=params['text']).order_by(order_by)
+    items = Item.objects.filter(name__icontains=params['text'], status='l').order_by(order_by)
 
     context = {
         'items': items,
