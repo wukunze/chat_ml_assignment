@@ -1,0 +1,25 @@
+{% extends 'base_template.html' %}
+{% block site_heading %}
+My orders
+{% endblock %}
+{% block site_content %}
+
+    <div class="divider"></div>    
+        <div class="row">   
+            <div class="col s12 m6 offset-m3">
+            {% if orders %}
+                <div class="collection">
+                    {% for order in orders %}
+                        <a href="{% url 'order' order_id=order.id %}" class="collection-item">Order n° {{ order.id }} <br>
+                                                                                            On {{ order.date }} <br>
+                                                                                            Price: {{ order.total }} $</a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="card-panel green accent-3">
+                    <span class="white-text">There are no orders yet!</span>
+                </div>
+            {% endif %}
+            </div>
+        </div> 
+{% endblock %}
