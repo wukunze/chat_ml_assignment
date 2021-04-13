@@ -12,9 +12,9 @@ Order n° {{ order.id }} on {{ order.date }}
                     <thead>
                         <tr>
                             <th>Merchandise</th>
-                            <th>Quantity</th>
+                            <!-- <th>Quantity</th> -->
                             <th>Price</th>
-                            <th>Total</th>
+                            <!-- <th>Total</th> -->
                         </tr>
                     </thead>
             
@@ -22,9 +22,9 @@ Order n° {{ order.id }} on {{ order.date }}
                     {% for line in order_lines %}
                         <tr>
                             <td>{{ line.item.name }}</td>
-                            <td>{{ line.quantity }}</td>
+                            <!-- <td>{{ line.quantity }}</td> -->
                             <td>{{ line.item.price }} $</td>
-                            <td>{{ line.total }} $</td>
+                            <!-- <td>{{ line.total }} $</td> -->
                         </tr>
                     {% endfor %}
                     </tbody>

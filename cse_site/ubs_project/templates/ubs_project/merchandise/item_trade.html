@@ -1,0 +1,26 @@
+{% extends "base_template.html" %}
+{% block content %}
+<h1>Exchange {{lItem.name}} with your:</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Exchange</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for item in lItems %}
+    {% if item.status == "l" %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.price }}</td>
+        <td>
+          <a class="btn btn-primary" role="button" href="{% url 'exchange_finish' lItem.id item.id %}">Exchange</a>
+        </td>
+      </tr>
+    {% endif %}
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

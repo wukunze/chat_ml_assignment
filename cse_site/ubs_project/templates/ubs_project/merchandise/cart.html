@@ -12,9 +12,9 @@ Your shopping cart
                     <thead>
                         <tr>
                             <th>Item</th>
-                            <th>Quantity</th>
+                            <!-- <th>Quantity</th> -->
                             <th>Price</th>
-                            <th>Total</th>
+                            <!-- <th>Total</th> -->
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -23,7 +23,7 @@ Your shopping cart
                     {% for line in cart_lines %}
                         <tr>
                             <td>{{ line.item.name }}</td>
-                            <td>
+                            <!-- <td>
                                 <div class="input-field col s12">
                                     <select data-id="{{ line.id }}" data-quantity="{{ line.quantity }}" name="quantity" class="browser-default">
                                         <option value="1">1</option>
@@ -38,9 +38,9 @@ Your shopping cart
                                         <option value="10">10</option>
                                     </select>
                                 </div>
-                            </td>
+                            </td> -->
                             <td>{{ line.item.price }} $</td>
-                            <td>{{ line.total }} $</td>
+                            <!-- <td>{{ line.total }} $</td> -->
                             <td><a href="{% url 'cart_delete' line.id %}"><i class="material-icons">delete</i></a></td>
                         </tr>
                     {% endfor %}

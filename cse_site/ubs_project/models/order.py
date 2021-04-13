@@ -26,7 +26,8 @@ class Cart(models.Model):
     def add(self, item_id, quantity):
         item = Item.objects.get(id=item_id)
         if (self.contains(item)):
-            cart_line = self.lines.get(item=item).add(1)
+            print("Item already in cart")
+            # cart_line = self.lines.get(item=item).add(1)
         else:
             cart_line = Cart_line(cart=self, item=item, quantity=quantity)
             cart_line.save()

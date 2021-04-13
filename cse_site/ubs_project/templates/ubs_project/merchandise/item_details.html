@@ -13,8 +13,10 @@
             </div>
             <p class="mt-2"><strong><u>Description</u></strong>: {{ item.description }}</p>
             <div>
-                    <a href="{% url 'delete item' item.id %}" class="btn btn-danger">Delete</a>
-                    <a href="{% url 'edit item' item.id %}" class="btn btn-warning">Edit</a>
+                    {% if item.create_by.username == user.username%}
+                        <a href="{% url 'delete item' item.id %}" class="btn btn-danger">Delete</a>
+                        <a href="{% url 'edit item' item.id %}" class="btn btn-warning">Edit</a>
+                    {% endif %}
             </div>
 
         </div>
