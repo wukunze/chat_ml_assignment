@@ -10,6 +10,7 @@ from django.views import generic as views
 from ..forms import FilterForm, ItemCreateForm
 from ..models.item import Item
 from django.contrib.auth.models import User
+from ..models.order import Cart, Order
 
 
 def extract_filter_values(params):
@@ -37,14 +38,18 @@ def item_display(request):
 
 
 #Exchange Merchandise
-def item_trade(request, item_id):
+def item_exchange(request, item_id):
     params = extract_filter_values(request.GET)
     student = get_object_or_404(User, pk=request.user.id)
     lItem = get_object_or_404(Item, pk=item_id)
     lItems = Item.objects.filter(name__icontains=params['text'], create_by=student)
+    numItems = len(lItems)
+    for oneItem in lItems:
+        if oneItem.status == "c":
+            numItems = numItems - 1
 
     #Handle error cases
-    if len(lItems) == 0:
+    if numItems == 0:
         return render(request, "ubs_project/merchandise/error.html",
                       {"message": "You have no items to exchange!"},
                       status=404)
@@ -53,16 +58,47 @@ def item_trade(request, item_id):
                       {"message": "You cannot exchange your own item!"},
                       status=404)
 
-
+    #Show exchange options
     context = {
         'lItems': lItems,
         'lItem': lItem,
         'current_page': 'home',
         'filter_form': FilterForm(initial=params),
     }
+    return render(request, 'ubs_project/merchandise/item_trade.html', context)
 
+#Finish Exchange Merchandise
+def item_exchange_finish(request, buy_id, sell_id):
+    bItem = get_object_or_404(Item, pk=buy_id)
+    sItem = get_object_or_404(Item, pk=sell_id)
+    bUser = get_object_or_404(User, pk=sItem.create_by.id)
+    sUser = get_object_or_404(User, pk=bItem.create_by.id)
     
-    # return render(request, 'ubs_project/merchandise/item_display.html', context)
+    #Create order for buyer
+    bCart = Cart(user=bUser)
+    bCart.save()
+    bCart.add(bItem.id, 1)
+    bOrder = Order(cart=bCart)
+    bCart.is_ordered = True
+    bCart.save()
+    bOrder.save()
+    bItem.sales_type = "e"
+    bItem.status = "c"
+    bItem.save()
+
+    #Create order for seller
+    sCart = Cart(user=sUser)
+    sCart.save()
+    sCart.add(sItem.id, 1)
+    sOrder = Order(cart=sCart)
+    sCart.is_ordered = True
+    sCart.save()
+    sOrder.save()
+    sItem.sales_type = "e"
+    sItem.status = "c"
+    sItem.save()
+
+    return item_display(request)
 
 
 class ItemDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):

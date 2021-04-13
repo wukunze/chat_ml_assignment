@@ -4,7 +4,7 @@
 {% if exchange_list %}
     <form class="form-inline float-left" action="{% url 'exchange_list' %}">
       <input class="form-control" type="search" placeholder="" aria-label="Search" name="exchange_search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+      <button class="btn btn-primary" type="submit">Search</button>
     </form>
 
     <a class="btn btn-success float-right" role="button" href="{% url 'exchange_create' %}">Create Exchange</a>
