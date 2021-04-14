@@ -1,0 +1,91 @@
+{% extends "base_template.html" %}
+{% block content %}
+<h1 style="font-style:italic;">Please Input Rent Information Of Merchandise</h1>
+
+<form action="{% url 'lend_req_handler' %}" method="post">
+    {% csrf_token %}
+    <div class="jumbotron">
+        <!--    <h1 class="display-4 " style="color:blue;">Click below to manage the club</h1>-->
+        {% load static %}
+        <!--    <img src="{% static 'img/club1.jpeg' %}" class="img-responsive" alt="Responsive image"-->
+        <!--         style="width:200px;height:200px;">-->
+        <!--    <hr class="my-4">-->
+        <!--    <h3 style="color:red;">Join Club Now !</h3>-->
+        <!--    <br>-->
+        <div class="form-group">
+            <label style="font-weight:bold;">Merchandise Image</label>
+            <div></div>
+            <!--        {% static 'media/watch.jpeg' %}-->
+            <img src="/media/{{image}}" class="img-responsive" alt="Responsive image"
+                 style="width:300px;height:300px;">
+            <input type="text" value="/media/{{image}}" name="mimage" style="visibility:hidden;">
+        </div>
+        <div class="form-group row">
+            <div class="offset-sm-2"></div>
+            <label class="col-sm-2 col-form-label" style="font-weight:bold;">Merchandise Name</label>
+            <div class="col-sm-4">
+                <input type="text" readonly class="form-control" style="background-color:white;" name="mname"
+                       value="{{name}}">
+                <input type="text" readonly class="form-control" style="background-color:white;visibility:hidden;"
+                       name="mid"
+                       value="{{item_id}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-sm-2"></div>
+            <label class="col-sm-2 col-form-label" style="font-weight:bold;">Merchandise Owner</label>
+            <div class="col-sm-4">
+                <input type="text" readonly class="form-control" style="background-color:white;" name="mowner"
+                       value="{{owner}}">
+                <input type="text" readonly class="form-control" style="background-color:white;visibility:hidden;"
+                       name="lend_user_id"
+                       value="{{owner_id}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-sm-2"></div>
+            <label class="col-sm-2 col-form-label" style="font-weight:bold;">Merchandise Description</label>
+            <div class="col-sm-4">
+            <textarea type="text" readonly class="form-control" name="mdescription"
+                      style="background-color:white;">{{description}}</textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-sm-2"></div>
+            <label class="col-sm-2 col-form-label" style="font-weight:bold;">Rental Price</label>
+            <div class="col-sm-4">
+                <input type="text" style="background-color:white;" readonly class="form-control" name="mprice"
+                       value="{{price}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-sm-2"></div>
+            <label class="col-sm-2 col-form-label" style="font-weight:bold;">Payment Card</label>
+            <div class="col-sm-4">
+                <select type="text" style="background-color:white;" readonly class="form-control" name="mcard">
+                    {% for card in cards %}
+                    <option>{{card.title}} {{card.card_number}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-4 offset-md-2">
+                {% if allow_req %}
+                <input type="submit" class="btn btn-primary btn-lg" style="width:100%;" href="{% url 'club_create' %}"
+                       role="button" value="Pay Rent Now!">
+                {% else %}
+                <input type="submit" class="btn btn-primary btn-lg" style="width:100%;" href="{% url 'club_create' %}"
+                       role="button" value="Pay Rent Now!" disabled="disabled">
+                {% endif %}
+
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-primary btn-lg" style="width:100%;" href="{% url 'display item' %}"
+                   role="button">Back</a>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

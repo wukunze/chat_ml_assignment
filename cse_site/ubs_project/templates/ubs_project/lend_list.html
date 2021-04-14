@@ -1,0 +1,59 @@
+{% extends 'base_template.html' %}
+{% block site_heading %}
+Rented Merchandises
+{% endblock %}
+{% block site_content %}
+<style>
+
+</style>
+<!--<form method="get" action="{% url 'display item' %}" >-->
+<!--    {% csrf_token %}-->
+<!--    <div class="form-group row">-->
+<!--        <div class="offset-sm-2"></div>-->
+<!--        <label for="inputPassword" class="col-sm-1 col-form-label">Password</label>-->
+<!--        <div class="col-sm-4" >-->
+<!--            <input type="password" class="form-control" id="inputPassword">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="text-center">-->
+<!--        <button class="btn btn-secondary">Search</button>-->
+<!--    </div>-->
+<!--</form>-->
+
+<div class="row" style="margin-top:20px;margin-left:80px;">
+    <form method="post" action="/ubs_project/mlend_list/">
+        {% csrf_token %}
+        <div style="margin-left:100px;"></div>
+        <input type="text" style="width:300px;height:40px;" name="search_content">&nbsp;&nbsp;
+        <a class="btn btn-success float-right" style="width:100px;" role="button"
+           href="{% url 'mlend_list' %}">Reset</a>
+        <input class="btn btn-success float-right" type="submit" value="Search" style="width:100px;margin-right:20px">
+    </form>
+</div>
+
+<a href="{% url 'lend_history' %}"><input type="button" class="btn btn-primary" value="See Rent History"
+                                         style="float: right;position:relative;left:-60px;top:-150px"></a>
+<a href="{% url 'display item' %}"><input type="button" class="btn btn-warn" value="To Rent Merchandise"
+                                         style="float: right;position:relative;left:-80px;top:-150px"></a>
+
+
+<div class="container-fluid" style="width:90%">
+    <div class="row">
+        {% for item in mlist %}
+        <div class="col-lg-4 align-items-stretch">
+            <div class="card m-3" style="width: 18rem;">
+                {% load static %}
+                <img class="card-img-top" src="{{ item.image.url }}" alt="Card image cap" style="height: 17rem">
+                <div class="card-body">
+                    <h5 class="card-title">Name:{{ item.name }}</h5>
+                    <p class="card-text">Rent Price: {{ item.price }}$</p>
+                    <a href="/ubs_project/mlend_detail/{{item.item_id}}" class="btn btn-secondary">Details</a>
+                    <a href="/ubs_project/mlend_return_handler/{{item.id}}" class="btn btn-primary">Return It</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base_template.html" %}
+{% block content %}
+<a class="btn btn-danger float-right" style="width:100px;" role="button"
+   href="{% url 'mlend_list' %}">Back</a>
+<h1 style="font-style:italic;">Rent History</h1>
+<div class="row" style="margin-top:20px;">
+    <form method="post" action="/ubs_project/mlend_history/">
+        {% csrf_token %}
+        <div style="margin-left:100px;"></div>
+        <input type="text" style="width:300px;height:40px;" name="search_content">&nbsp;&nbsp;
+        <input class="btn btn-success float-right" type="submit" value="Search" style="width:100px;margin-right:20px">
+    </form>
+</div>
+{% if Joined %}
+<div class="alert alert-danger" role="alert" style="margin-top:10px;">
+    Joined Clud can't be joined again.
+</div>
+{% endif %}
+{% if NewJoin %}
+<div class="alert alert-primary" role="alert" style="margin-top:10px;">
+    Join Club Success
+</div>
+{% endif %}
+<table class="table table-striped" style="margin-top:30px">
+    <thead>
+    <tr>
+        <th scope="col">Merchandise Name</th>
+        <th scope="col">Merchandise Description</th>
+        <th scope="col">Owner</th>
+        <th scope="col">Rent Time</th>
+        <th scope="col">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in lend_history %}
+    <tr>
+        <td>{{item.name}}</td>
+        <td>
+            {{item.description}}
+        </td>
+        <td>
+            {{item.owner_name}}
+        </td>
+        <td>
+            {{item.rent_time}}
+        </td>
+        <td>
+            {{item.returned}}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
