@@ -1,0 +1,45 @@
+{% extends 'base_template.html' %}
+{% block site_content %}
+    <div class="d-flex">
+        <div class="d-inline p-2 w-50">
+            <img src="{{ item.image.url }}" class="w-50 rounded mx-auto d-block">
+        </div>
+        <div class="d-inline p-2 w-50">
+            <div class="d-flex justify-content-between">
+                <h5><u>Name:</u> {{ item.name }}</h5>
+                <h5><u>Price:</u> {{ item.price }}$</h5>
+                <h5><u><strong>Owner:</strong></u> <strong> {{ item.create_by.username }}</strong>
+                </h5>
+            </div>
+            <p class="mt-2"><strong><u>Description</u></strong>: {{ item.description }}</p>
+            <div>
+                    <a href="/ubs_project/mlend_list" class="btn btn-danger">Back</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="d-block" style="background-color: #F0E0C7; padding:2%">
+        {% if item.comment_set.all %}
+            {% for comment in item.comment_set.all %}
+                <div class="box">
+                    <strong><a href="{% url 'user profile' comment.user.user_id %}">{{ comment.user.user.username }}</a></strong>
+                    <h5><em>{{ comment.text }}</em></h5>
+                    <hr>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="box">
+                <h3>There are no comments for this merchandise. </h3>
+            </div>
+        {% endif %}
+        {% if can_comment %}
+            <div class="box">
+                <form method="post" action="{% url 'comment item' item.pk %}">
+                    {{ form }}
+                    {% csrf_token %}
+                    <button class="btn btn-secondary mt-2" type="submit">Add comment</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

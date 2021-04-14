@@ -6,5 +6,6 @@
         <h5 class="card-title">{{ item.name }}</h5>
         <p class="card-text">{{ item.price }}$</p>
         <a href="{% url 'item details' item.id %}" class="btn btn-secondary">Details</a>
+        <a href="{% url 'lend_req' item.id %}" class="btn btn-primary">Rent</a>
     </div>
 </div>

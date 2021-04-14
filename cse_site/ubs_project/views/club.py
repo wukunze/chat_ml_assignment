@@ -210,12 +210,14 @@ def club_member_list(request, pk):
     }
     return render(request, 'ubs_project/club_member_list.html', context_object_name)
 
+
 def club_member_delete(request, club_id, user_id):
     club = get_object_or_404(Club, pk=club_id)
     student = get_object_or_404(User, pk=user_id)
     club.student.remove(student)
 
     return redirect(reverse('club_member_list', args=(club_id,)))
+
 
 def club_member_add_handler(request, pk):
     # return student still havent join any club
@@ -234,7 +236,7 @@ def club_member_add_handler(request, pk):
             student_list.append(user[0])
 
     context_object_name = {
-        "club":club,
+        "club": club,
         "students": student_list,
     }
     return render(request, 'ubs_project/club_member_add_handler.html', context_object_name)
@@ -246,3 +248,4 @@ def club_member_add(request, club_id, user_id):
     club.student.add(student)
 
     return redirect(reverse('club_member_list', args=(club_id,)))
+
