@@ -31,20 +31,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Lend',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=20)),
-                ('description', models.TextField()),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10, validators=[ubs_project.validators.positive_number])),
-                ('image', models.ImageField(upload_to='items')),
-                ('status', models.IntegerField()),
-                ('created_at', models.DateTimeField()),
-                ('rent_user_id', models.IntegerField()),
-                ('lend_user_id', models.IntegerField()),
-            ],
-        ),
-        migrations.CreateModel(
             name='Payment',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),

@@ -35,14 +35,14 @@ def lend_req(request, pk):
     if request.user.id == owner_id:
         allow_req = False
 
-    cursor = connection.cursor()
-    select_sql = "select * from ubs_project_card where created_by_id= {0}".format(user_id)
-    cursor.execute(select_sql)
-    raw = cursor.fetchall()
-    cards = []
-    for i in range(len(raw)):
-        c = raw[i]
-        cards.append({'title': c[1], 'card_number': c[5]})
+    # cursor = connection.cursor()
+    # select_sql = "select * from ubs_project_card where created_by_id= {0}".format(user_id)
+    # cursor.execute(select_sql)
+    # raw = cursor.fetchall()
+    # cards = []
+    # for i in range(len(raw)):
+    #     c = raw[i]
+    #     cards.append({'title': c[1], 'card_number': c[5]})
 
     context_object_name = {
         'item_id': item_id,
@@ -52,7 +52,7 @@ def lend_req(request, pk):
         'owner': owner,
         'image': image,
         'owner_id': owner_id,
-        'cards': cards,
+        # 'cards': cards,
         'allow_req': allow_req
     }
     return render(request, 'ubs_project/lend_req.html', context_object_name)
