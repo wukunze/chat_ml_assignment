@@ -10,8 +10,9 @@
 
         <h2>{{ exchange.title }}</h2>
 
+        <h4>Details:</h4>
         <div id="editor-content">
-            <textarea style="display: none;">{{ exchange.description }} </textarea>
+            {{ exchange.description | safe }}
         </div>
 
 

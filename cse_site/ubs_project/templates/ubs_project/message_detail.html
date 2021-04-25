@@ -8,10 +8,11 @@
 {% block content %}
     <div class="container">
 
-        <h2>{{ message.title }}</h2>
+        <h2>Subject: {{ message.title }}</h2>
 
+        <h4>Message:</h4>
         <div id="editor-content">
-            <textarea>{{ message.content |safe }} </textarea>
+            {{ message.content | safe }}
         </div>
 
 

@@ -10,10 +10,10 @@
 
         <h2>{{ event.title }}</h2>
 
+        <h4>Details:</h4>
         <div id="editor-content">
-            <textarea style="display: none;">{{ event.description }} </textarea>
+            {{ event.description | safe }}
         </div>
-
 
         <div class="alert alert-info " role="alert">
         <span class="meta">Posted by <a href="#" class="alert-link">{{ event.created_by.username }}</a> on {{ event.created_at }} </span>
