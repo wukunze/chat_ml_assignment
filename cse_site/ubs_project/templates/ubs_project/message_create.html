@@ -1,0 +1,70 @@
+{% extends "base_template.html" %}
+{% block css %}
+    <!--load more css-->
+    {% load static %}
+
+{% endblock %}
+
+{% block content %}
+{% if rec_single is True %}
+<form action="{% url 'msg_create_handler' %}" method="post">
+{% else %}
+<form action="{% url 'msg_group_handler' %}" method="post">
+{% endif %}
+    {% csrf_token %}
+    <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
+    <input style="display: none" type="text" name="fakeusernameremembered" />
+    <input style="display: none" type="password" name="fakepasswordremembered" />
+    <div class="form-group">
+        <label>Title:</label>
+        <input name="title" type="text" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label>To:</label>
+        <select name="recipient" type="text" class="form-control" required>
+            {% for rec in rec_list %}
+                {% if rec_single is True %}
+                    <option value="{{ rec.id }}">{{ rec.username }}</option>
+                {% else %}
+                    <option value="{{ rec.id }}">{{ rec.title }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group" style="text-align: left">
+        <label>Message</label>
+
+        <textarea id="content" name="content" type="text" class="form-control" rows="8" style="display:none;"></textarea>
+        <div id="test-editor"></div>
+
+    </div>
+    <input type="submit" class="btn btn-primary" value="Send Message">
+
+</form>
+
+
+{% endblock %}
+
+{% block js %}
+    <!-- load editor js -->
+
+<!--    rich text editor-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/wangeditor@latest/dist/wangEditor.min.js"></script>
+    <script src="{% static 'js/i18next.js' %}"></script>
+
+    <script type="text/javascript">
+      const E = window.wangEditor
+      // const editor = new E("#div1")
+      const editor = new E(document.getElementById('test-editor'))
+      editor.config.lang = 'en'
+      editor.i18next = window.i18next
+
+      const $descriptionArea = $('#content')
+      editor.config.onchange = function (html) {
+        // The second step is to monitor the changes and synchronize the updates to the textarea
+        $descriptionArea.val(html)
+    }
+      editor.create()
+    </script>
+
+{% endblock %}

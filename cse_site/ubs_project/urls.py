@@ -8,6 +8,7 @@ from .views.merchandise import DeleteItemView, UpdateItemView, ItemDetailsView, 
 from .views import exchange
 from .views import order
 from .views import lend_merchandise
+from .views import message
 
 urlpatterns = [
     path("", index.index, name="home"),
@@ -108,4 +109,20 @@ urlpatterns = [
     path('mlend_detail/<int:pk>', lend_merchandise.lend_detail, name='lend_detail'),
     path('mlend_return_handler/<int:pk>', lend_merchandise.lend_return_handler, name='mlend_return_handler'),
     path('mlend_history/', lend_merchandise.lend_history, name='lend_history'),
+
+    # story 16/17 : A student can Send and Receive messages
+    path('msg_sent/', message.SentView.as_view(), name='msg_sent'),  # show all
+    path('msg_recv/', message.RecvView.as_view(), name='msg_recv'),  # show all
+
+    path('message_detail/<int:pk>/', message.DetailView.as_view(), name='message_detail'),  # show message by pk
+
+    path('msg_create/', message.msg_create, name='msg_create'),  # GET to show the html form
+    path('msg_create_handler/', message.msg_create_handler, name='msg_create_handler'),  # POST receive data
+
+    path('msg_group/', message.msg_group, name='msg_group'),  # GET to show the html form  
+    path('msg_group_handler/', message.msg_group_handler, name='msg_group_handler'),  # POST receive data
+
+    path('msg_delete/<int:pk>/', message.msg_delete, name='msg_delete'),
+
+
 ]
