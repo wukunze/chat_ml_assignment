@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import ObjectDoesNotExist
 # Defines a cart that holds a user selection
+from django.utils import timezone
+
 from ..models import Item
 
 
@@ -55,6 +57,12 @@ class Cart_line(models.Model):
 class Order(models.Model):
     date = models.DateTimeField(auto_now=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+
+
+    payTime = models.DateTimeField(default=timezone.now)
+
+    paid = models.BooleanField( default=False)
+    braintreeId = models.CharField(max_length=200, blank=True)
 
     def total(self):
         return round(self.cart.total(), 2)

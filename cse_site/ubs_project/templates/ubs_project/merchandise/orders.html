@@ -12,7 +12,9 @@ My orders
                     {% for order in orders %}
                         <a href="{% url 'order' order_id=order.id %}" class="collection-item">Order n° {{ order.id }} <br>
                                                                                             On {{ order.date }} <br>
-                                                                                            Price: {{ order.total }} $</a>
+                                                                                            Price: {{ order.total }} $<br>
+                                                                                            Payment Status: {{order.paid}}
+                        </a>
                     {% endfor %}
                 </div>
             {% else %}
