@@ -4,11 +4,14 @@ from .views import advertisement
 from .views import registration
 from .views import club
 from .views import index
-from .views.merchandise import DeleteItemView, UpdateItemView, ItemDetailsView, item_create, item_display, item_exchange, item_exchange_finish
+from .views.merchandise import DeleteItemView, UpdateItemView, ItemDetailsView, item_create, item_display, \
+    item_exchange, item_exchange_finish
 from .views import exchange
 from .views import order
 from .views import lend_merchandise
 from .views import message
+from . import views
+from .views.order import paymentRejected, payment
 
 urlpatterns = [
     path("", index.index, name="home"),
@@ -101,6 +104,9 @@ urlpatterns = [
     path("cart/order", order.order_cart, name="cart_order"),
     path("orders", order.orders, name="orders"),
     path("order/<int:order_id>", order.order, name="order"),
+    path('payment', payment.as_view(), name='payment'),
+    # path('payment', order.checkout, name='payment'),
+    path('payment/<int:id>/rejected', paymentRejected,name='paymentRejected'),
 
     # story 13: A Student can lend Merchandises
     path('mlend/<int:pk>/', lend_merchandise.lend_req, name='lend_req'),

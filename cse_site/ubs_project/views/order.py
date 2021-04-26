@@ -1,5 +1,8 @@
 from datetime import datetime, date, time
 
+from django.conf import settings
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core.mail import send_mail
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.http.response import HttpResponseForbidden
@@ -12,10 +15,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.contrib import messages
+from django.utils import timezone
+import braintree
+from django.views.generic.base import TemplateResponseMixin, View
 
 # Create your views here.
 
 # Add a item to the cart
+from .. import models
 from ..models import Item
 from ..models.order import Cart_line, Cart, Order
 
@@ -157,6 +165,7 @@ def dashboard(request):
 # Allows users to see details of one order
 def order(request, order_id):
     order = Order.objects.get(id=order_id)
+    request.session['orderId'] = order.id
     if request.user.is_staff or (request.user.is_authenticated and request.user == order.cart.user):
         context = {
             "order": order,
@@ -166,3 +175,54 @@ def order(request, order_id):
         return render(request, "ubs_project/merchandise/order.html", context)
     else:
         return render(request, "ubs_project/merchandise/error.html", {"message": "access is forbidden"}, 403)
+
+
+class payment(TemplateResponseMixin, View):
+    template_name = 'ubs_project/merchandise/checkout.html'
+    order = None
+
+    def dispatch(self, request, *args, **kwargs):
+        self.order = get_object_or_404(Order,
+                                       id=request.session['orderId'])
+        return super(payment, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        token = braintree.ClientToken.generate()
+        return self.render_to_response({'token': token,
+                                        'order': self.order})
+
+    def post(self, request):
+        nonceKey = request.POST.get('payment_method_nonce')
+        result = braintree.Transaction.sale({
+            'purchase_order_number': '{}'.format(self.order.id),
+            'amount': '{:.2f}'.format(self.order.cart.total()),
+            'payment_method_nonce': nonceKey,
+            'merchant_account_id': 'onlineShop',
+            'options': {
+                'submit_for_settlement': True
+            }
+        })
+        if result.is_success:
+            self.order.payTime = timezone.now()
+            self.order.paid = True
+            self.order.braintreeId = result.transaction.id
+            self.order.save()
+
+            short_name = request.user.email.split('@')[0]
+            title = 'Thank you {} for shopping'.format(short_name)
+            body = "We accapted your order number:{}." \
+                   "we will try to deliver it as soon as possible.\n\n" \
+                   "UBS Team".format(self.order.id)
+            send_mail(title, body, settings.EMAIL_HOST_USER,
+                      [request.user.email])
+            text = 'Your order number:{} payment has been approved'.format(self.order.id)
+            messages.success(request, text)
+            return redirect(reverse('orders'))
+        return redirect(reverse('paymentRejected',
+                                args=(self.order.id,)))
+
+
+def paymentRejected(request, id):
+    text = 'Order number:{} rejected.'.format(id)
+    return render(request, 'ubs_project/merchandise/rejected.html',
+                  {'text': text})
