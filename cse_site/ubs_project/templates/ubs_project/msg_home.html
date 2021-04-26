@@ -1,0 +1,28 @@
+{% extends "base_template.html" %}
+{% block content %}
+<h1 style="font-style:italic;">Send or View Messages</h1>
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-4 offset-md-2">
+            <a class="btn btn-primary btn-lg" style="width:100%;" href="{% url 'msg_recv' %}"
+               role="button">Inbox</a>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-primary btn-lg" style="width:100%;" href="{% url 'msg_sent' %}"
+               role="button">Outbox</a>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 offset-md-2">
+          <a class="btn btn-primary btn-lg" style="width:100%;" href="{% url 'msg_create' %}"
+             role="button">Send User Message</a>
+      </div>
+      <div class="col-md-4">
+          <a class="btn btn-primary btn-lg" style="width:100%;" href="{% url 'msg_group' %}"
+             role="button">Send Group Message</a>
+      </div>
+  </div>
+</div>
+
+{% endblock %}

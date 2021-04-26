@@ -111,6 +111,7 @@ urlpatterns = [
     path('mlend_history/', lend_merchandise.lend_history, name='lend_history'),
 
     # story 16/17 : A student can Send and Receive messages
+    path('msg_home/', message.msg_home, name='msg_home'),
     path('msg_sent/', message.SentView.as_view(), name='msg_sent'),  # show all
     path('msg_recv/', message.RecvView.as_view(), name='msg_recv'),  # show all
 

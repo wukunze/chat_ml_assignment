@@ -49,6 +49,10 @@ class DetailView(generic.DetailView):
     model = Message
 
 
+def msg_home(request):
+    return render(request, 'ubs_project/msg_home.html')
+
+
 def msg_create(request):
     rec_list = User.objects.order_by('username')[:10]
     context_object_name = {
