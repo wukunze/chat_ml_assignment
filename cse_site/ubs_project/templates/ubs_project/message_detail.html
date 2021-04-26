@@ -8,16 +8,16 @@
 {% block content %}
     <div class="container">
 
-        <h2>{{ exchange.title }}</h2>
+        <h2>Subject: {{ message.title }}</h2>
 
-        <h4>Details:</h4>
+        <h4>Message:</h4>
         <div id="editor-content">
-            {{ exchange.description | safe }}
+            {{ message.content | safe }}
         </div>
 
 
         <div class="alert alert-info " role="alert">
-        <span class="meta">Posted by <a href="#" class="alert-link">{{ exchange.created_by.username }}</a> on {{ exchange.created_at }} </span>
+        <span class="meta">Posted by <a href="#" class="alert-link">{{ message.created_by.username }}</a> on {{ message.created_at }} </span>
         </div>
     </div>
 {% endblock %}

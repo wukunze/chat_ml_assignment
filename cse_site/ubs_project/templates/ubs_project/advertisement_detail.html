@@ -10,8 +10,9 @@
 
         <h2>{{ advertisement.title }}</h2>
 
+        <h4>Details:</h4>
         <div id="editor-content">
-            <textarea style="display: none;">{{ advertisement.description }} </textarea>
+            {{ advertisement.description | safe }}
         </div>
 
 

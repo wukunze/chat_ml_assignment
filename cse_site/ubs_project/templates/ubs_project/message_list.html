@@ -1,0 +1,42 @@
+{% extends "base_template.html" %}
+{% block content %}
+<h1>Message List</h1>
+{% if message_list %}
+  <form class="form-inline float-left" action="{% url request.resolver_match.view_name %}">
+    <input class="form-control" type="search" placeholder="" aria-label="Search" name="msg_search">
+    <button class="btn btn-primary" type="submit">Search</button>
+  </form>
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+          <th scope="col">Message Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for message in message_list %}
+      <tr>
+        <td><a href="{% url 'message_detail' message.id %}">{{ message.title }}</a></td>
+        <td>
+          {{ message.created_by.username }}
+        </td>
+        <td>
+              <a class="btn btn-danger" role="button" href="{% url 'msg_delete' message.id %}">delete</a>
+        </td>
+      </tr>
+    {% endfor %}
+
+
+    </tbody>
+  </table>
+
+{% else %}
+    <div class="jumbotron" >
+      <h1 class="display-4 ">No messages are available.</h1>
+      <hr class="my-4">
+    </div>
+{% endif %}
+{% endblock %}
